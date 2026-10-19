@@ -91,11 +91,7 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
       project = html("work/alpha-project/index.html");
     const research = html("research/index.html");
     assert.doesNotMatch(research, /Hidden research output|Private draft text/);
-    assert.match(research, /href="\/portfolio-test\/research\/covasim\/"/);
-    assert.match(
-      research,
-      /href="\/portfolio-test\/artifacts\/covasim-poster\.pdf"/,
-    );
+    assert.match(research, /\/portfolio-test\/work\//);
     assert.match(home, /Homepage fixture/);
     assert.doesNotMatch(
       home,

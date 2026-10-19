@@ -8,6 +8,7 @@ export default defineConfig({
   output: "static",
   site: process.env.SITE_URL || "https://yamires.github.io",
   base,
+  redirects: { "/research/": `${base.replace(/\/$/, "")}/work/` },
   markdown: {
     processor: unified({ remarkPlugins: [[remarkContent, { base }]] }),
   },
