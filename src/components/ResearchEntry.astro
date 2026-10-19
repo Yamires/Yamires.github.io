@@ -1,0 +1,40 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import { artifactHref } from "../lib/paths";
+interface Props {
+  entry: CollectionEntry<"research">;
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<details class="cv-entry research-entry" id={`research-${entry.id}`}>
+  <summary>
+    <span class="cv-date">
+      {entry.data.kind}
+      {entry.data.date_display && (
+        <span class="research-entry-date">{entry.data.date_display}</span>
+      )}
+    </span>
+    <span class="cv-summary-copy">
+      <span class="linked-label">Linked entry</span>
+      <span class="cv-title">{entry.data.title}</span>
+      <span class="cv-organization">{entry.data.status}</span>
+      <span class="cv-contribution">{entry.data.summary}</span>
+    </span>
+    <span class="disclosure-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="cv-body research-entry-body">
+    <Content />
+    {!!entry.data.links.length && (
+      <div class="link-group">
+        {entry.data.links.map((link) => (
+          <a href={artifactHref(link.url)}>{link.label}</a>
+        ))}
+      </div>
+    )}
+    <p class="metadata entry-permalink">
+      <a href={`#research-${entry.id}`}>Link to this entry #</a>
+    </p>
+  </div>
+</details>

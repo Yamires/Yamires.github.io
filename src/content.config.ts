@@ -46,4 +46,25 @@ const photography = defineCollection({
     placeholder: z.boolean().default(false),
   }),
 });
-export const collections = { projects, photography };
+const research = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/research" }),
+  schema: z.object({
+    title: z.string(),
+    kind: z.enum([
+      "Project",
+      "Publication",
+      "Manuscript",
+      "Poster",
+      "Presentation",
+    ]),
+    status: z.string(),
+    date_display: z.string().default(""),
+    summary: z.string(),
+    draft: z.boolean().default(true),
+    display_order: z.number().default(100),
+    links: z
+      .array(z.object({ label: z.string(), url: z.string().min(1) }))
+      .default([]),
+  }),
+});
+export const collections = { projects, photography, research };
