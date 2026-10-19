@@ -11,7 +11,6 @@ const { entry } = Astro.props;
   <summary>
     <span class="cv-date">{entry.date}</span>
     <span class="cv-summary-copy">
-      <span class="linked-label">Linked entry</span>
       <span class="cv-title">{entry.title}</span>
       <span class="cv-organization">{entry.organization}</span>
       <span class="cv-contribution">{entry.summary}</span>
@@ -51,8 +50,5 @@ const { entry } = Astro.props;
         ))}
       </div>
     )}
-    <p class="metadata entry-permalink">
-      <a href={`#${entry.id}`}>Link to this entry #</a>
-    </p>
   </div>
 </details>

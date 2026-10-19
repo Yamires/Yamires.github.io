@@ -9,8 +9,6 @@ display_order: 1
 links:
   - label: Explore the Covasim web poster →
     url: research/covasim/
-  - label: Research experience in the CV →
-    url: cv/#covasim-research
 ---
 
 ### Research question
