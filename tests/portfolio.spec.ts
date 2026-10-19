@@ -28,7 +28,7 @@ test("representative pages have no serious accessibility violations or runtime e
     if (response.status() >= 400)
       errors.push(`${response.status()} ${response.url()}`);
   });
-  for (const route of ["/", "/cv/", "/work/covasim/", "/research/covasim/"]) {
+  for (const route of ["/", "/cv/", "/work/covasim/", "/research/", "/research/covasim/"]) {
     await page.goto(route);
     await page.screenshot({
       path: testInfo.outputPath(`${route.replaceAll("/", "-")}-desktop.png`),
@@ -129,7 +129,7 @@ test("representative pages reflow and mobile navigation works", async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const route of ["/", "/cv/", "/work/covasim/", "/research/covasim/"]) {
+  for (const route of ["/", "/cv/", "/work/covasim/", "/research/", "/research/covasim/"]) {
     await page.goto(route);
     await page.screenshot({
       path: testInfo.outputPath(`${route.replaceAll("/", "-")}-mobile.png`),

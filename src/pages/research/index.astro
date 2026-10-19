@@ -1,0 +1,100 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Section from "../../components/Section.astro";
+import Contents from "../../components/Contents.astro";
+import ResearchEntry from "../../components/ResearchEntry.astro";
+import { href } from "../../lib/paths";
+const entries = (
+  await getCollection("research", ({ data }) => !data.draft)
+).sort(
+  (a, b) =>
+    a.data.display_order - b.data.display_order ||
+    a.data.title.localeCompare(b.data.title),
+);
+const items = [
+  { id: "direction", number: "01", title: "Research direction" },
+  { id: "projects", number: "02", title: "Research projects" },
+  { id: "outputs", number: "03", title: "Publications & outputs" },
+];
+---
+
+<Base
+  title="Research"
+  active="research"
+  description="Research on domain knowledge, software assumptions, and software evolution at GEODES, Université de Montréal. Projects, posters, and work in progress."
+>
+  <header class="page-masthead">
+    <p class="eyebrow">GEODES / Université de Montréal</p>
+    <h1>Research</h1>
+    <p class="lead">
+      How does software evolve when the knowledge it represents changes?
+    </p>
+    <p class="metadata research-affiliation">
+      Graduate research · M.Sc. in Programming and Software Engineering
+    </p>
+  </header>
+  <div class="document-grid">
+    <Contents items={items} />
+    <div class="document-main">
+      <Section id="direction" number="01" title="Research direction">
+        <div class="prose">
+          <p class="lead">
+            I study how people understand software, the assumptions they
+            represent in it, and how those assumptions change over time.
+          </p>
+          <p>
+            As domain knowledge changes, assumptions embedded in a software
+            system can become outdated—even while the system continues to run.
+            I’m interested in how developers recognize and respond to these
+            changes, and what traces their responses leave in repository
+            history.
+          </p>
+          <p>
+            My current work combines software repository analysis, artifact
+            classification, and empirical methods to investigate these
+            questions. It began during a summer 2026 research internship at
+            GEODES and continues as graduate research at the same lab.
+          </p>
+        </div>
+        <div class="research-direction-line" aria-label="Research perspective">
+          <span>Changing domain knowledge</span>
+          <span aria-hidden="true">→</span>
+          <span>Software assumptions</span>
+          <span aria-hidden="true">→</span>
+          <span>Repository evidence</span>
+        </div>
+      </Section>
+      <Section id="projects" number="02" title="Research projects">
+        <p class="metadata research-list-intro">
+          Open an entry for context, research questions, and related material.
+        </p>
+        {entries
+          .filter((entry) => entry.data.kind === "Project")
+          .map((entry) => (
+            <ResearchEntry entry={entry} />
+          ))}
+      </Section>
+      <Section id="outputs" number="03" title="Publications & research outputs">
+        <p class="prose research-list-intro">
+          Posters and writing connected to the research. Work in progress is
+          identified separately from published work.
+        </p>
+        {entries
+          .filter((entry) => entry.data.kind !== "Project")
+          .map((entry) => (
+            <ResearchEntry entry={entry} />
+          ))}
+      </Section>
+      <aside class="related-content" aria-label="Related content">
+        <p class="eyebrow">Research background</p>
+        <a href={href("cv/#covasim-research")}>
+          Research experience in the CV →
+        </a>
+      </aside>
+    </div>
+  </div>
+  <script>
+    import "../../scripts/research-entries";
+  </script>
+</Base>

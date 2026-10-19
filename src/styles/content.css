@@ -146,3 +146,49 @@
     display: block !important;
   }
 }
+
+/* Research overview follows the same ruled document and disclosure patterns as the CV. */
+.research-affiliation {
+  margin-top: 20px;
+}
+.research-list-intro {
+  margin-bottom: 16px;
+}
+.research-entry-date {
+  display: block;
+  margin-top: 8px;
+}
+.research-entry-body > p,
+.research-entry-body > ul {
+  max-width: var(--reading);
+}
+.research-entry-body h3 {
+  margin-bottom: 12px;
+}
+.research-direction-line {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--rule);
+  padding-block: 16px;
+  margin-top: 24px;
+  font-size: 15px;
+}
+.research-direction-line > [aria-hidden] {
+  color: var(--accent);
+}
+@media (max-width: 767px) {
+  .research-direction-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .research-direction-line > [aria-hidden] {
+    transform: rotate(90deg);
+  }
+  .research-entry-date {
+    display: inline;
+    margin: 0 0 0 8px;
+  }
+}

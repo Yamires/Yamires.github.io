@@ -127,3 +127,12 @@ Official references: [Markdown in Astro](https://docs.astro.build/en/guides/mark
 - The build job has read-only repository access and checkout does not persist credentials. Only the deployment job receives short-lived Pages/OIDC write permissions. No personal access token is stored in this repository or required by its workflows.
 - Only `dist/` is deployed. Draft content is excluded from the site but remains visible in the public source repository. Never put confidential content in draft Markdown. The original combined CV/application and local poster source copy are ignored; only the intended archived poster PDF is public.
 - To publish: run **Deploy portfolio** from Actions on `main` after **Check portfolio** passes. To roll back: revert the unwanted change, let checks pass, and run the deployment again. To take the site offline: unpublish it in Settings → Pages.
+
+
+## Edit the Research overview
+
+`/research/` introduces the overall direction, then lists expandable research projects and publications/research outputs. The existing `/research/covasim/` web poster stays at its original address, including links from Work and the homepage.
+
+Copy `templates/research-entry.md` into `src/content/research/` to add a project, publication, manuscript, poster, or presentation. Edit the short `summary` and `status` shown when collapsed, and write the expanded text in Markdown. Only entries with `draft: false` appear. `display_order` sorts entries within each section. Add only confirmed dates, authors, venues, and artifact links; manuscripts remain explicitly marked as work in progress until their status changes. Draft content is still visible in the public repository.
+
+The filename forms a stable entry anchor: `covasim.md` becomes `/research/#research-covasim`. Shared entry links open and highlight their target with JavaScript. Native disclosures remain keyboard-operable and usable without JavaScript. Multiple entries may stay open for comparison. The poster includes a return link to its project entry.

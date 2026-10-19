@@ -66,6 +66,10 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
       join(fixture, "src/content/photography/hidden-photo.md"),
       "---\ntitle: Hidden photo\ndraft: true\n---\n\n![Draft image.](/images/photography/placeholder.svg)\n",
     );
+    writeFileSync(
+      join(fixture, "src/content/research/hidden-output.md"),
+      "---\ntitle: Hidden research output\nkind: Publication\nstatus: Draft\nsummary: Research fixture\ndraft: true\n---\nPrivate draft text.\n",
+    );
     execFileSync(
       process.execPath,
       [resolve("node_modules/astro/bin/astro.mjs"), "build", "--root", fixture],
@@ -85,6 +89,13 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
       cv = html("cv/index.html"),
       work = html("work/index.html"),
       project = html("work/alpha-project/index.html");
+    const research = html("research/index.html");
+    assert.doesNotMatch(research, /Hidden research output|Private draft text/);
+    assert.match(research, /href="\/portfolio-test\/research\/covasim\/"/);
+    assert.match(
+      research,
+      /href="\/portfolio-test\/artifacts\/covasim-poster\.pdf"/,
+    );
     assert.match(home, /Homepage fixture/);
     assert.doesNotMatch(
       home,
