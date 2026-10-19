@@ -1,0 +1,148 @@
+/* Content additions use the existing document grid, type, rules, and tokens. */
+.project-body .numbered-section > p,
+.project-body .numbered-section > ul,
+.project-body .numbered-section > ol {
+  max-width: var(--reading);
+}
+.cv-contact {
+  margin-top: 20px;
+  font-size: 15px;
+}
+.cv-filter {
+  margin-top: 20px;
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+  font-size: 14px;
+}
+.cv-filter summary {
+  min-height: 44px;
+  padding-block: 10px;
+}
+.cv-filter label {
+  display: grid;
+  gap: 8px;
+}
+.cv-filter select {
+  width: 100%;
+  min-height: 44px;
+  font-size: 14px;
+  background: var(--canvas);
+  border: 1px solid var(--strong-rule);
+  border-radius: 4px;
+  padding: 8px;
+}
+.cv-filter button {
+  margin-top: 12px;
+  text-align: left;
+}
+.cv-education {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.cv-education h3 {
+  margin-bottom: 4px;
+}
+.cv-education .cv-organization {
+  margin-bottom: 12px;
+}
+.cv-stage + .cv-stage {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.cv-stage h3 {
+  margin-bottom: 4px;
+}
+.cv-stage .metadata {
+  margin-bottom: 12px;
+}
+.entry-permalink {
+  margin-top: 16px;
+}
+.cv-skills {
+  margin-bottom: 0;
+}
+.cv-skills > div {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.cv-skills dt {
+  font-weight: 600;
+}
+.cv-skills dd {
+  margin: 0;
+}
+.photography-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+.photography-placeholder {
+  max-width: 704px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.photograph img {
+  display: block;
+  width: 100%;
+}
+.photograph > p {
+  margin-bottom: 12px;
+}
+.photograph figcaption strong,
+.photo-metadata {
+  display: block;
+}
+.photograph figcaption strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.photograph figcaption p {
+  margin-block: 6px 0;
+}
+.contact-secondary {
+  margin-top: 12px;
+}
+@media (max-width: 767px) {
+  .site-name {
+    max-width: calc(100% - 82px);
+    line-height: 1.3;
+  }
+  .site-footer > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .cv-education {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .cv-education .cv-date {
+    margin-bottom: 0;
+  }
+  .cv-skills > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .cv-filter {
+    margin: 0 0 12px;
+    padding-top: 0;
+  }
+  .photography-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+@media print {
+  .cv-filter,
+  .filter-count {
+    display: none !important;
+  }
+  [data-cv-section][hidden] {
+    display: block !important;
+  }
+}

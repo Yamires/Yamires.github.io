@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+.DS_Store
+cv_yamirPoldoSilva_Deloitte-2.pdf
+
+# Private credentials and local source documents
+*.pem
+*.key
+*.p12
+*.pfx
+covasim-poster-A1.pptx (1).pdf

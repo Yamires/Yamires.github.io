@@ -1,0 +1,130 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import { profile } from "../data/profile";
+import { href } from "../lib/paths";
+import { publishedProjects } from "../lib/projects";
+import Photography from "../components/Photography.astro";
+const projects = (await publishedProjects())
+  .filter((project) => project.data.featured)
+  .slice(0, 3);
+---
+
+<Base title="About" active="about">
+  <div class="home-intro">
+    <p class="eyebrow">
+      Master’s student <span class="inline-divider">/</span>{" "}
+      {profile.affiliation}
+    </p>
+    <h1>{profile.name}</h1>
+    <p class="intro-statement">
+      Understanding how software evolves
+      <br class="desktop-break" /> when the world it represents changes
+      <span class="accent">.</span>
+    </p>
+    <p class="intro-support">
+      Domain knowledge. Repository evidence. Software evolution.
+    </p>
+    <div class="link-group">
+      <a class="action-link" href={href("cv/")}>
+        Explore my CV <span aria-hidden="true">→</span>
+      </a>
+      <a href="#selected-work">
+        Selected work <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+    <div class="intro-index" aria-hidden="true">
+      <span>FIELD NOTES</span>
+      <span>01 — 05</span>
+    </div>
+  </div>
+
+  <Section id="about" number="01" title="Who am I">
+    <div class="about-grid">
+      <div class="prose">
+        <p class="lead">
+          I’m a master’s student in Programming and Software Engineering at
+          Université de Montréal, continuing my research at GEODES.
+        </p>
+        <p>
+          I’m interested in how people understand software—the assumptions they
+          make, the knowledge they rely on, and how those things shape software
+          evolution.
+        </p>
+        <p>
+          My current research grew out of a summer internship at the same lab.
+          It explores how changing domain knowledge can make assumptions
+          embedded in software outdated, how developers respond, and what
+          repository history can reveal about those changes.
+        </p>
+        <p>
+          Outside software and research, I enjoy travelling and photography.
+        </p>
+      </div>
+      <aside class="interest-rail" aria-label="Research interests">
+        <p class="eyebrow">Areas of inquiry</p>
+        <ul>
+          <li>Software evolution</li>
+          <li>Empirical software engineering</li>
+          <li>Domain-assumption drift</li>
+          <li>Repository analysis</li>
+          <li>Scientific software</li>
+        </ul>
+        <p class="metadata">
+          {profile.program}
+          <br />
+          Expected completion 2027
+        </p>
+      </aside>
+    </div>
+  </Section>
+  <Section id="selected-work" number="02" title="Selected work">
+    {projects.map((project, index) => (
+      <ProjectRow project={project} index={index + 1} />
+    ))}
+    <a class="section-end-link" href={href("work/")}>
+      All work →
+    </a>
+  </Section>
+  <Section id="background" number="03" title="Explore my background">
+    <div class="split-action">
+      <p class="prose">
+        A professional document you can explore. Open an entry for context,
+        follow its artifacts, or trace the work into a full case study.
+      </p>
+      <a class="action-link" href={href("cv/")}>
+        Open interactive CV →
+      </a>
+    </div>
+  </Section>
+  <Section id="photography" number="04" title="Selected photographs">
+    <p class="prose">
+      A small space for travel and photography, alongside the technical work.
+    </p>
+    <Photography />
+  </Section>
+  <Section id="contact" number="05" title="Get in touch">
+    <div class="split-action">
+      <div>
+        <p class="lead">Questions, ideas, or a research connection?</p>
+        <a class="contact-email" href={`mailto:${profile.email}`}>
+          {profile.email} <span aria-hidden="true">↗</span>
+        </a>
+        <p class="metadata contact-secondary">
+          Personal:{" "}
+          <a href={`mailto:${profile.personalEmail}`}>
+            {profile.personalEmail}
+          </a>
+        </p>
+      </div>
+      <div>
+        <p class="metadata">{profile.affiliation}</p>
+        <div class="link-group">
+          <a href={profile.github}>GitHub ↗</a>
+          <a href={profile.linkedin}>LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>

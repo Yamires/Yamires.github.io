@@ -1,0 +1,110 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Contents from "../../components/Contents.astro";
+import Section from "../../components/Section.astro";
+import { href, artifactHref } from "../../lib/paths";
+import { publishedProjects, projectCVAnchor } from "../../lib/projects";
+export async function getStaticPaths() {
+  return (await publishedProjects()).map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const items = [
+  { id: "context", number: "01", title: "Context" },
+  { id: "problem", number: "02", title: "Problem" },
+  { id: "approach", number: "03", title: "Approach" },
+  { id: "result", number: "04", title: "Result" },
+  { id: "artifacts", number: "05", title: "Artifacts / links" },
+];
+const metadata = [
+  ["Period", project.data.date_display],
+  [
+    "Context",
+    [project.data.organization, project.data.context]
+      .filter(Boolean)
+      .join(" · "),
+  ],
+  ["Role", project.data.role],
+  ["Collaborators", project.data.collaborators],
+  ["Status", project.data.status],
+];
+const cvEntry =
+  project.data.cv_entry ||
+  (project.data.include_in_cv ? projectCVAnchor(project) : undefined);
+---
+
+<Base
+  title={project.data.title}
+  description={project.data.summary}
+  active="work"
+>
+  <header class="page-masthead">
+    <p class="breadcrumb">
+      <a href={href("work/")}>Work</a>
+      <span>/</span>
+      {project.data.title}
+    </p>
+    <p class="eyebrow">{project.data.category} / case study</p>
+    <h1>{project.data.title}</h1>
+    <p class="lead">{project.data.summary}</p>
+    <dl class="project-meta">
+      {metadata
+        .filter(([, value]) => value)
+        .map(([label, value]) => (
+          <div>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+    </dl>
+    <div class="link-group">
+      {project.data.links.slice(0, 2).map((link) => (
+        <a href={artifactHref(link.url)}>
+          {link.label}{" "}
+          {/^https?:/.test(link.url) || /\.pdf$/.test(link.url) ? "↗" : "→"}
+        </a>
+      ))}
+    </div>
+  </header>
+  <div class="document-grid">
+    <Contents items={items} />
+    <div class="document-main project-body">
+      <Content />
+      <Section id="artifacts" number="05" title="Artifacts / links">
+        {project.data.links.length ? (
+          <ul class="artifact-list">
+            {project.data.links.map((link) => (
+              <li>
+                <a href={artifactHref(link.url)}>{link.label} ↗</a>
+                {link.description && <p>{link.description}</p>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="metadata">
+            Supporting artifacts will be added when available.
+          </p>
+        )}
+      </Section>
+      <aside class="related-content" aria-label="Related content">
+        <p class="eyebrow">Follow the connection</p>
+        <div class="related-grid">
+          {cvEntry && (
+            <div>
+              <a href={href(`cv/#${cvEntry}`)}>Back to the CV entry →</a>
+              <p>The experience behind this case study.</p>
+            </div>
+          )}
+          <div>
+            <a href={href("work/")}>Explore all work →</a>
+            <p>Projects, questions, and supporting evidence.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>

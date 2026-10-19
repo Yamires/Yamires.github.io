@@ -1,0 +1,369 @@
+---
+import Base from "../../layouts/Base.astro";
+import Section from "../../components/Section.astro";
+import Contents from "../../components/Contents.astro";
+import { evidence } from "../../data/profile";
+import { href } from "../../lib/paths";
+import { researchPoster } from "../../data/research-poster";
+import PosterViewer from "../../components/PosterViewer.astro";
+const items = [
+  { id: "motivation", number: "01", title: "Motivation" },
+  { id: "approach", number: "02", title: "Approach" },
+  { id: "findings", number: "03", title: "Findings" },
+  { id: "next-steps", number: "04", title: "Next steps" },
+];
+const steps = [
+  {
+    title: "External event",
+    text: "Jan. 19, 2021. New evidence on immune escape in COVID-19 variants.",
+  },
+  {
+    title: "Domain classification",
+    text: "Domain-relevant vs. non-domain-relevant commits. Project-specific criteria and an LLM classifier.",
+  },
+  {
+    title: "Repository history",
+    text: "Analyze 400 commits before and after the event.",
+  },
+  {
+    title: "Historical calibration",
+    text: "Compare with historical pseudo-events from the same repository.",
+  },
+];
+---
+
+<Base
+  title="Covasim — research narrative"
+  active="research"
+  description="A preliminary Covasim case study of domain-relevant software evolution, with historical comparisons and representative commit evidence."
+>
+  <header class="page-masthead">
+    <p class="eyebrow">Research / preliminary case study</p>
+    <h1 class="research-title">
+      Domain-relevant
+      <br />
+      software evolution
+    </h1>
+    <p class="research-subtitle">A Case Study of Covasim</p>
+    <p class="research-question">
+      How does domain-relevant development evolve following a domain change, and
+      how unusual is that evolution relative to the project’s historical
+      development?
+    </p>
+    <div class="authors">
+      <p>
+        <strong>Yamir Poldo Silva</strong>
+        <span>Université de Montréal</span>
+      </p>
+      <p>
+        <strong>Michalis Famelis</strong>
+        <span>Université de Montréal</span>
+      </p>
+    </div>
+    <div class="link-group">
+      <a href={researchPoster.viewUrl}>Open in Canva ↗</a>
+      <a href={href(researchPoster.pdfPath)} download>
+        Download poster · PDF
+      </a>
+      <a href={href("work/covasim/")}>Related case study →</a>
+    </div>
+    <PosterViewer />
+  </header>
+  <div class="document-grid">
+    <Contents items={items} />
+    <div class="document-main">
+      <Section id="motivation" number="01" title="Motivation">
+        <div class="motivation-grid">
+          <div>
+            <h3>Domain knowledge evolves</h3>
+            <p>
+              New evidence can change what software is expected to represent.
+            </p>
+            <p class="metadata">
+              An immunity example illustrates how a changed scientific
+              assumption can alter the behavior a model needs to represent.
+            </p>
+          </div>
+          <figure
+            class="immunity-comparison"
+            aria-label="Immunity before and after new evidence of immune escape"
+          >
+            <div class="diagram-sequence">
+              <span>
+                <strong>Earlier</strong>infection
+              </span>
+              <span class="diagram-arrow" aria-hidden="true">
+                →
+              </span>
+              <span>Immunity</span>
+              <span class="diagram-arrow" aria-hidden="true">
+                →
+              </span>
+              <span>Low risk of reinfection</span>
+            </div>
+            <p class="change-annotation">↓ New variant with immune escape</p>
+            <div class="diagram-sequence">
+              <span>
+                <strong>Earlier</strong>infection
+              </span>
+              <span class="diagram-arrow" aria-hidden="true">
+                →
+              </span>
+              <span>Weaker immunity</span>
+              <span class="diagram-arrow" aria-hidden="true">
+                →
+              </span>
+              <span>Higher risk of reinfection</span>
+            </div>
+          </figure>
+        </div>
+        <div class="motivation-band">
+          <h3>Software tests are not enough</h3>
+          <p class="prose">
+            Software may still run and pass tests while its encoded domain
+            assumptions become outdated.
+          </p>
+          <div class="assumption-diagram">
+            <div class="assumption-block">
+              <strong>Current domain knowledge</strong>
+              <p>
+                Updated scientific understanding: immune escape, variant
+                properties, and cross-immunity.
+              </p>
+            </div>
+            <span class="drift-arrow" aria-hidden="true">
+              ↔
+            </span>
+            <div class="assumption-block">
+              <strong>Assumptions represented in software</strong>
+              <p>
+                Encoded model structure, parameters, and relationships: immunity
+                and susceptibility.
+              </p>
+            </div>
+          </div>
+          <p class="diagram-caption">
+            <span class="accent">Domain-assumption drift</span> describes the
+            gap between current domain knowledge and represented assumptions.
+          </p>
+        </div>
+        <div>
+          <h3>Can repository activity reveal it?</h3>
+          <p class="prose">
+            Repository activity may provide clues that represented assumptions
+            are changing.
+          </p>
+          <ol class="event-timeline">
+            <li>
+              <time datetime="2021-01-19">Jan. 19, 2021</time>
+              <p>
+                <strong>New evidence of immune escape</strong>
+                <span>Scientific event · external anchor</span>
+              </p>
+            </li>
+            <li>
+              <time>Feb.–Mar. 2021</time>
+              <p>
+                <strong>Repeated immunity-related changes</strong>
+                <span>
+                  Multiple commits related to immunity and susceptibility
+                </span>
+              </p>
+            </li>
+            <li>
+              <time datetime="2021-03-03">Mar. 3, 2021</time>
+              <p>
+                <strong>Immunity becomes an explicit software module</strong>
+                <span>
+                  <code>immunity.py</code>
+                </span>
+              </p>
+            </li>
+          </ol>
+          <p class="caveat">
+            The scientific event is an external anchor. This sequence is not
+            interpreted as evidence of causality.
+          </p>
+        </div>
+      </Section>
+
+      <Section id="approach" number="02" title="Preliminary approach">
+        <p class="prose">
+          <strong>Case study — Covasim.</strong> Agent-based COVID-19 modeling
+          software in the broader Starsim infectious-disease modeling ecosystem.
+        </p>
+        <ol class="process-strip">
+          {steps.map((step, index) => (
+            <li>
+              <span class="process-step">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section id="findings" number="03" title="Preliminary findings">
+        <p class="lead">
+          Domain-relevant development became unusually concentrated.
+        </p>
+        <div class="findings-panel">
+          <div class="finding-head">
+            <span class="finding-stat">85.3%</span>
+            <p>
+              of commits in Bins 1–3 were domain-relevant
+              <span class="metadata">
+                128 / 150 commits · Bins of 50 commits each
+              </span>
+            </p>
+          </div>
+          <div class="findings-grid">
+            <div class="findings-chart">
+              <h3>Domain-relevant commit prevalence</h3>
+              <figure>
+                <img
+                  src={href("images/covasim-findings.png")}
+                  width="680"
+                  height="400"
+                  alt="Original poster chart showing domain-relevant commit percentages across commit bins, a historical P5–P95 band, historical median, and an external-event marker. Bins 1–3 are unusually elevated; exact bar values are not transcribed."
+                />
+                <figcaption>
+                  Original figure extracted from the supplied poster. Green bars
+                  show domain-relevant prevalence; the shaded band shows
+                  historical P5–P95, with a historical median and external-event
+                  marker.
+                </figcaption>
+              </figure>
+              <a class="figure-link" href={href("images/covasim-findings.png")}>
+                View full-size figure ↗
+              </a>
+              <p class="draft-note research-history-note">
+                The original chart is preserved. A linked numerical chart and
+                data table will follow verified source data; values have not
+                been estimated from the image.
+              </p>
+              <details class="figure-description">
+                <summary>Read the findings in text</summary>
+                <p>
+                  In Bins 1–3, 128 of 150 commits were domain-relevant (85.3%).
+                  These bins exceeded the historical 95th percentile. Domain
+                  prevalence remained above the 90th percentile through Bin 5.
+                </p>
+              </details>
+            </div>
+            <div class="evidence-column" data-evidence>
+              <h3>What was happening?</h3>
+              <p class="metadata">
+                Representative immunity-related commits, as reported in the
+                poster.
+              </p>
+              <div
+                class="evidence-selector"
+                role="group"
+                aria-label="Explore commit evidence"
+                hidden
+              >
+                <button data-bin="overview" aria-pressed="true">
+                  Overview
+                </button>
+                {evidence.map((group) => (
+                  <button data-bin={group.id} aria-pressed="false">
+                    Bin {group.bin}
+                  </button>
+                ))}
+              </div>
+              <p class="metadata" data-evidence-status role="status" hidden></p>
+              <a class="figure-link" data-go-evidence href="#bin-1" hidden>
+                Go to selected evidence ↓
+              </a>
+              {evidence.map((group) => (
+                <article id={group.id} class="evidence-group" tabindex="-1">
+                  <span class="selected-label">Selected bin</span>
+                  <h4>
+                    Bin {group.bin} · {group.title}
+                  </h4>
+                  <p class="metadata">{group.dates}</p>
+                  <ul class="evidence-commits">
+                    {group.commits.map((commit) => (
+                      <li>
+                        <span class="commit-date">{commit.date}</span> ·{" "}
+                        <code>{commit.hash}</code>
+                        <br />
+                        <span>“{commit.message}”</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="interpretation">
+                    <strong>Interpretation.</strong> {group.interpretation}
+                  </p>
+                  <a
+                    class="metadata"
+                    href={`#${group.id}`}
+                    aria-label={`Link to Bin ${group.bin}`}
+                  >
+                    Link to this bin #
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+          <p class="historical-comparison">
+            <strong>Historically unusual trajectory.</strong> Bins 1–3 exceeded
+            the historical 95th percentile; domain prevalence remained above the
+            90th percentile through Bin 5.
+          </p>
+          <p>
+            Across Bins 1–3, immunity representation is repeatedly extended,
+            reworked, and eventually consolidated into an explicit module.
+          </p>
+          <p class="caveat">
+            One retrospective Covasim episode; no causal or general claim.
+          </p>
+        </div>
+      </Section>
+
+      <Section id="next-steps" number="04" title="Next steps">
+        <div class="research-questions">
+          <div>
+            <p class="eyebrow">RQ1 / Detecting drift</p>
+            <h3>
+              Can repository artifacts reveal domain-assumption drift early
+              enough to support software evolution planning?
+            </h3>
+            <p>
+              Recover domain representations across versions and identify
+              repository signals of changing assumptions.
+            </p>
+          </div>
+          <div>
+            <p class="eyebrow">RQ2 / Characterizing & communicating drift</p>
+            <h3>
+              What information helps stakeholders understand a candidate drift
+              signal and assess its implications for software evolution?
+            </h3>
+            <p>
+              Study which representations best support stakeholder understanding
+              of changed assumptions.
+            </p>
+          </div>
+        </div>
+      </Section>
+      <aside class="related-content" aria-label="Related content">
+        <p class="eyebrow">Continue exploring</p>
+        <div class="related-grid">
+          <div>
+            <a href={href("work/covasim/")}>The project behind the poster →</a>
+            <p>Context, problem, approach, and artifacts.</p>
+          </div>
+          <div>
+            <a href={href("cv/#covasim-research")}>Research in the CV →</a>
+            <p>Return to the connected professional document.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script>
+    import "../../scripts/evidence";
+  </script>
+</Base>

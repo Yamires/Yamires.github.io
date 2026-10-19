@@ -1,0 +1,153 @@
+---
+import Base from "../../layouts/Base.astro";
+import Contents from "../../components/Contents.astro";
+import Section from "../../components/Section.astro";
+import Entry from "../../components/CVEntry.astro";
+import {
+  profile,
+  education,
+  cvSections,
+  skillGroups,
+  type CVEntry,
+} from "../../data/profile";
+import { href } from "../../lib/paths";
+import { publishedProjects, projectCVAnchor } from "../../lib/projects";
+const projects = (await publishedProjects()).filter(
+  (project) => project.data.include_in_cv,
+);
+const items = [
+  { id: "profile", number: "01", title: "Profile" },
+  { id: "education", number: "02", title: "Education" },
+  ...cvSections.map(({ id, number, title }) => ({ id, number, title })),
+  { id: "projects", number: "06", title: "Selected Projects" },
+  { id: "skills", number: "07", title: "Technical Skills" },
+  { id: "posters", number: "08", title: "Posters & Research Outputs" },
+];
+const projectEntries: CVEntry[] = projects.map((project) => ({
+  id: projectCVAnchor(project),
+  date: project.data.date_display,
+  title: project.data.title,
+  organization: [project.data.organization, project.data.context]
+    .filter(Boolean)
+    .join(" · "),
+  summary: project.data.summary,
+  technologies: project.data.technologies,
+  bullets: project.data.cv_highlights,
+  links: [
+    { label: "Full project case study", href: `work/${project.id}/` },
+    ...project.data.links.map((link) => ({
+      label: link.label,
+      href: link.url,
+    })),
+  ],
+}));
+---
+
+<Base title="Curriculum vitae" active="cv">
+  <header class="page-masthead">
+    <p class="eyebrow">Curriculum vitae / research & software</p>
+    <h1>{profile.name}</h1>
+    <p class="lead">Master’s student in Programming and Software Engineering</p>
+    <p class="metadata">
+      Université de Montréal · GEODES · Expected completion 2027
+    </p>
+    <div class="link-group cv-contact">
+      <a href={`mailto:${profile.email}`}>Academic email ↗</a>
+      <a href={`mailto:${profile.personalEmail}`}>Personal email ↗</a>
+      <a href={profile.github}>GitHub ↗</a>
+      <a href={profile.linkedin}>LinkedIn ↗</a>
+    </div>
+    <div class="masthead-bottom">
+      <p class="metadata">
+        Research, teaching, and the software work that connects them.
+      </p>
+      <button class="text-button" data-print hidden>
+        Print / save as PDF ↗
+      </button>
+    </div>
+  </header>
+  <div class="document-grid" data-cv>
+    <Contents items={items} filters />
+    <div class="document-main">
+      <div class="cv-utilities" data-cv-utilities hidden>
+        <button class="text-button" data-expand-all>
+          Expand all
+        </button>
+        <button class="text-button" data-collapse-all>
+          Collapse all
+        </button>
+      </div>
+      <p
+        class="metadata filter-count"
+        data-filter-count
+        role="status"
+        hidden
+      ></p>
+      <Section id="profile" number="01" title="Profile">
+        <p class="prose">{profile.summary}</p>
+      </Section>
+      <Section id="education" number="02" title="Education">
+        {education.map((entry) => (
+          <article id={entry.id} class="cv-education">
+            <p class="cv-date">{entry.date}</p>
+            <div>
+              <h3>{entry.title}</h3>
+              <p class="cv-organization">{entry.organization}</p>
+              <p>{entry.summary}</p>
+            </div>
+          </article>
+        ))}
+      </Section>
+      {cvSections.map((section) => (
+        <div data-cv-section data-category={section.category}>
+          <Section
+            id={section.id}
+            number={section.number}
+            title={section.title}
+          >
+            {section.entries.map((entry) => (
+              <Entry entry={entry} />
+            ))}
+          </Section>
+        </div>
+      ))}
+      <div data-cv-section data-category="projects">
+        <Section id="projects" number="06" title="Selected Projects">
+          {projectEntries.length ? (
+            projectEntries.map((entry) => <Entry entry={entry} />)
+          ) : (
+            <p class="metadata">
+              Selected projects will appear here as the collection grows.{" "}
+              <a href={href("work/")}>Explore current work →</a>
+            </p>
+          )}
+        </Section>
+      </div>
+      <Section id="skills" number="07" title="Technical Skills">
+        <dl class="cv-skills">
+          {skillGroups.map((group) => (
+            <div>
+              <dt>{group.title}</dt>
+              <dd>{group.items}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+      <Section id="posters" number="08" title="Posters & Research Outputs">
+        <article class="poster-citation">
+          <p class="eyebrow">Research poster</p>
+          <h3>Domain-Relevant Software Evolution: A Case Study of Covasim</h3>
+          <p>Yamir Poldo Silva and Michalis Famelis · Université de Montréal</p>
+          <div class="link-group">
+            <a href={href("artifacts/covasim-poster.pdf")}>Poster · PDF ↗</a>
+            <a href={href("research/covasim/")}>Research narrative →</a>
+            <a href="#covasim-research">Related research entry →</a>
+          </div>
+        </article>
+      </Section>
+    </div>
+  </div>
+  <script>
+    import "../../scripts/cv";
+  </script>
+</Base>

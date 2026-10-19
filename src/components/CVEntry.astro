@@ -1,0 +1,58 @@
+---
+import type { CVEntry } from "../data/profile";
+import { artifactHref } from "../lib/paths";
+interface Props {
+  entry: CVEntry;
+}
+const { entry } = Astro.props;
+---
+
+<details class="cv-entry" id={entry.id}>
+  <summary>
+    <span class="cv-date">{entry.date}</span>
+    <span class="cv-summary-copy">
+      <span class="linked-label">Linked entry</span>
+      <span class="cv-title">{entry.title}</span>
+      <span class="cv-organization">{entry.organization}</span>
+      <span class="cv-contribution">{entry.summary}</span>
+      {!!entry.technologies?.length && (
+        <span class="cv-organization">{entry.technologies.join(" · ")}</span>
+      )}
+    </span>
+    <span class="disclosure-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="cv-body">
+    {entry.stages?.map((stage) => (
+      <div class="cv-stage">
+        <h3>{stage.title}</h3>
+        <p class="metadata">{stage.date}</p>
+        {stage.description && <p>{stage.description}</p>}
+        {stage.bullets && (
+          <ul>
+            {stage.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
+    {!!entry.bullets?.length && (
+      <ul>
+        {entry.bullets.map((bullet) => (
+          <li>{bullet}</li>
+        ))}
+      </ul>
+    )}
+    {entry.description && <p>{entry.description}</p>}
+    {!!entry.links?.length && (
+      <div class="link-group">
+        {entry.links.map((link) => (
+          <a href={artifactHref(link.href)}>{link.label}</a>
+        ))}
+      </div>
+    )}
+    <p class="metadata entry-permalink">
+      <a href={`#${entry.id}`}>Link to this entry #</a>
+    </p>
+  </div>
+</details>

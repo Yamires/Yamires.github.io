@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectRow from "../../components/ProjectRow.astro";
+import { publishedProjects } from "../../lib/projects";
+const projects = await publishedProjects();
+---
+
+<Base title="Work" active="work">
+  <header class="page-masthead">
+    <p class="eyebrow">Projects / research & software</p>
+    <h1>Work</h1>
+    <p class="lead">
+      Questions investigated, approaches taken, and evidence gathered.
+    </p>
+  </header>
+  <div class="work-index">
+    <p class="metadata">
+      {projects.length} {projects.length === 1 ? "project" : "projects"} ·
+      Research & software
+    </p>
+    {projects.map((project, index) => (
+      <ProjectRow project={project} index={index + 1} />
+    ))}
+  </div>
+</Base>

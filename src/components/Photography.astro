@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from "astro:content";
+const entries = (
+  await getCollection("photography", ({ data }) => !data.draft)
+).sort(
+  (a, b) =>
+    a.data.display_order - b.data.display_order ||
+    a.data.title.localeCompare(b.data.title),
+);
+const realPhotos = entries.filter((entry) => !entry.data.placeholder);
+const selected = realPhotos.length
+  ? realPhotos.slice(0, 12)
+  : entries.filter((entry) => entry.data.placeholder).slice(0, 1);
+const photos = await Promise.all(
+  selected.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+---
+
+<div
+  class:list={[
+    "photography-grid",
+    { "photography-placeholder": !realPhotos.length },
+  ]}
+>
+  {photos.map(({ entry, Content }) => (
+    <figure class="photograph">
+      <Content />
+      <figcaption>
+        <strong>{entry.data.title}</strong>
+        {(entry.data.location || entry.data.year) && (
+          <span class="photo-metadata">
+            {[entry.data.location, entry.data.year].filter(Boolean).join(" · ")}
+          </span>
+        )}
+        {entry.data.caption && <p>{entry.data.caption}</p>}
+      </figcaption>
+    </figure>
+  ))}
+</div>

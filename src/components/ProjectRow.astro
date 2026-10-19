@@ -1,0 +1,40 @@
+---
+import { href } from "../lib/paths";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  project: CollectionEntry<"projects">;
+  index?: number;
+}
+const { project, index = 1 } = Astro.props;
+const destination = href(project.data.destination || `work/${project.id}/`);
+---
+
+<article
+  class="project-row"
+  data-project-category={project.data.category.toLowerCase()}
+>
+  <div class="project-index">
+    <span>{String(index).padStart(2, "0")}</span>
+    <span class="metadata">{project.data.date_display}</span>
+  </div>
+  <div>
+    <h3>
+      <a href={destination}>
+        {project.data.title} <span aria-hidden="true">→</span>
+      </a>
+    </h3>
+    <p>{project.data.summary}</p>
+    <p class="metadata">
+      {[...project.data.topics, ...project.data.technologies]
+        .slice(0, 5)
+        .join(" · ")}
+    </p>
+  </div>
+  <a
+    class="row-action"
+    href={destination}
+    aria-label={`Read the ${project.data.title} case study`}
+  >
+    Read case study <span aria-hidden="true">→</span>
+  </a>
+</article>

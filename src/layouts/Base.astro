@@ -1,0 +1,99 @@
+---
+import "@fontsource-variable/source-sans-3";
+import "../styles/global.css";
+import "../styles/research.css";
+import "../styles/responsive.css";
+import "../styles/content.css";
+import { href } from "../lib/paths";
+import { profile } from "../data/profile";
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+}
+const {
+  title,
+  description = `Research, software, and the assumptions between them. The personal portfolio of ${profile.name}.`,
+  active = "",
+} = Astro.props;
+const links = [
+  { label: "About", path: "", key: "about" },
+  { label: "CV", path: "cv/", key: "cv" },
+  { label: "Work", path: "work/", key: "work" },
+  { label: "Research", path: "research/covasim/", key: "research" },
+  { label: "Contact", path: "#contact", key: "contact" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#F7F6F0" />
+    <title>{title} — {profile.name}</title>
+    <link rel="icon" type="image/svg+xml" href={href("favicon.svg")} />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header wrap">
+      <a class="site-name" href={href()}>
+        {profile.name}
+        <span class="name-mark" aria-hidden="true">
+          .
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        {links.map((link) => (
+          <a
+            href={href(link.path)}
+            aria-current={active === link.key ? "page" : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+      <details class="mobile-menu">
+        <summary>
+          <span class="menu-closed">Menu</span>
+          <span class="menu-open">Close menu</span>
+          <span aria-hidden="true">＋</span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {links.map((link) => (
+            <a
+              href={href(link.path)}
+              aria-current={active === link.key ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </details>
+    </header>
+    <main id="main" class="wrap" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer wrap">
+      <div>
+        <a href={href()}>{profile.name}</a>
+        <span class="metadata">Research & software</span>
+        <a href={profile.github}>GitHub ↗</a>
+        <a href={profile.linkedin}>LinkedIn ↗</a>
+      </div>
+      <div class="footer-meta">
+        <span class="metadata">
+          Updated <time datetime={profile.updated}>18 Oct 2026</time>
+        </span>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+    <script>
+      import "../scripts/navigation";
+    </script>
+  </body>
+</html>

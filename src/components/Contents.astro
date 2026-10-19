@@ -1,0 +1,35 @@
+---
+import CVFilters from "./CVFilters.astro";
+interface Props {
+  items: { id: string; number: string; title: string }[];
+  filters?: boolean;
+}
+const { items, filters = false } = Astro.props;
+---
+
+<aside class="contents" aria-label="Page contents">
+  <div class="desktop-contents">
+    <p class="eyebrow">On this page</p>
+    <nav aria-label="Sections">
+      {items.map((item) => (
+        <a href={`#${item.id}`} data-section-link={item.id}>
+          <span>{item.number}</span>
+          {item.title}
+        </a>
+      ))}
+    </nav>
+    {filters && <CVFilters />}
+  </div>
+  <details class="mobile-contents">
+    <summary>On this page</summary>
+    <nav aria-label="Sections">
+      {items.map((item) => (
+        <a href={`#${item.id}`} data-section-link={item.id}>
+          <span>{item.number}</span>
+          {item.title}
+        </a>
+      ))}
+    </nav>
+    {filters && <CVFilters />}
+  </details>
+</aside>

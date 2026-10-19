@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/paths";
+---
+
+<Base title="Page not found">
+  <div class="page-masthead">
+    <p class="eyebrow">404 / Missing page</p>
+    <h1>This page isn’t here.</h1>
+    <p class="lead">Start with the background, the work, or the research.</p>
+    <div class="link-group">
+      <a href={href()}>About →</a>
+      <a href={href("cv/")}>CV →</a>
+      <a href={href("work/")}>Work →</a>
+    </div>
+  </div>
+</Base>
