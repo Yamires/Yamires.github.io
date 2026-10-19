@@ -111,10 +111,8 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
     );
     for (const id of ["context", "problem", "approach", "result", "artifacts"])
       assert.match(project, new RegExp(`id="${id}"`));
-    assert.match(
-      project,
-      /href="\/portfolio-test\/cv\/#project-alpha-project"/,
-    );
+    assert.match(cv, /id="project-alpha-project"/);
+    assert.doesNotMatch(project, /Back to the CV entry/);
     assert.match(
       home,
       /src="\/portfolio-test\/images\/photography\/test-image.svg"/,

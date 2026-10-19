@@ -652,13 +652,6 @@ main {
   margin-top: 20px;
   font-size: 15px;
 }
-.linked-label {
-  display: none;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
 .cv-entry[data-linked="true"]::before {
   content: "";
   position: absolute;
@@ -667,9 +660,6 @@ main {
   height: 30px;
   width: 2px;
   background: var(--accent);
-}
-.cv-entry[data-linked="true"] .linked-label {
-  display: block;
 }
 .cv-note {
   margin-top: 32px;

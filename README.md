@@ -49,7 +49,7 @@ The filename becomes `/work/my-project/`. Keep filenames stable after publishing
 | `topics`, `technologies` | Brief context in project rows and CV summaries                                                                                                                                |
 | `links`                  | Array of `label`, `url`, and optional `description`                                                                                                                           |
 
-The work index contains all published projects. Default project return links lead to `cv/#project-my-project` when included in the CV. Covasim instead returns to its research entry and is not duplicated under Selected Projects.
+The work index contains all published projects. Project entries keep stable CV anchors for shared URLs, without displaying entry-permalink or related-CV-entry links. Covasim is not duplicated under Selected Projects.
 
 GraphHopper, Civilium Structurium, and Kaggle are retained as **unpublished optional examples**, based on the supplied CV. They do not fix the public selection. Edit, replace, or publish them as you choose. `project-starter.md` is an unpublished blank example. Drafts are excluded in every build, including development.
 
@@ -101,7 +101,7 @@ npx playwright install chromium
 npm test
 ```
 
-The authoring integration test builds an isolated temporary copy with synthetic projects and photographs, checking draft exclusion, independent homepage/CV selection, generic project sections, CV return links, metadata, and repository-subpath image URLs. It never changes your authored files. Browser tests build a fresh production site on port 4322 and cover deep links, filtering/history, expansion, confirmed content, mobile reflow, keyboard and print behavior, no-JavaScript access, and automated accessibility checks. Poster-viewer tests intercept Canva requests with a controlled response or simulated failure, verifying no requests before activation, one retained frame, accessible labeling, portrait proportions, and working fallbacks. They do not assert that Canva is always reachable.
+The authoring integration test builds an isolated temporary copy with synthetic projects and photographs, checking draft exclusion, independent homepage/CV selection, generic project sections, CV anchors, metadata, and repository-subpath image URLs. It never changes your authored files. Browser tests build a fresh production site on port 4322 and cover deep links, filtering/history, expansion, confirmed content, mobile reflow, keyboard and print behavior, no-JavaScript access, and automated accessibility checks. Poster-viewer tests intercept Canva requests with a controlled response or simulated failure, verifying no requests before activation, one retained frame, accessible labeling, portrait proportions, and working fallbacks. They do not assert that Canva is always reachable.
 
 ## GitHub Pages
 

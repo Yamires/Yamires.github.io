@@ -260,3 +260,20 @@ test("project drafts stay unpublished and photography uses a Markdown-authored p
   await expect(page.locator("#projects")).not.toContainText("GraphHopper");
   await expect(page.locator("#posters")).toContainText("Research poster");
 });
+
+test("CV describes exploratory research without causal claims or entry-link UI", async ({ page }) => {
+  await page.goto("/cv/#covasim-research");
+  const entry = page.locator("#covasim-research");
+  await expect(entry).toHaveAttribute("open", "");
+  await expect(entry).toContainText("PELT, Interrupted Time Series, Difference-in-Differences");
+  await expect(entry).toContainText("did not provide sufficient evidence to establish causality");
+  await expect(entry).toContainText("exploratory pseudo-event study");
+  await expect(entry).toContainText("historical pseudo-events from the same repository");
+  await expect(entry).toContainText("without making causal claims");
+  await expect(entry).toContainText("Cohen’s kappa");
+  for (const route of ["/cv/", "/work/covasim/", "/research/covasim/"]) {
+    await page.goto(route);
+    await expect(page.getByRole("link", { name: /Link to this entry|Related research entry|Research in the CV|Back to the CV entry/i })).toHaveCount(0);
+    await expect(page.locator(".linked-label, .entry-permalink")).toHaveCount(0);
+  }
+});

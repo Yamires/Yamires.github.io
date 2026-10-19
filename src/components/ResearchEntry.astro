@@ -17,7 +17,6 @@ const { Content } = await render(entry);
       )}
     </span>
     <span class="cv-summary-copy">
-      <span class="linked-label">Linked entry</span>
       <span class="cv-title">{entry.data.title}</span>
       <span class="cv-organization">{entry.data.status}</span>
       <span class="cv-contribution">{entry.data.summary}</span>
@@ -33,8 +32,5 @@ const { Content } = await render(entry);
         ))}
       </div>
     )}
-    <p class="metadata entry-permalink">
-      <a href={`#research-${entry.id}`}>Link to this entry #</a>
-    </p>
   </div>
 </details>

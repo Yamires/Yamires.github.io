@@ -4,7 +4,7 @@ import Base from "../../layouts/Base.astro";
 import Contents from "../../components/Contents.astro";
 import Section from "../../components/Section.astro";
 import { href, artifactHref } from "../../lib/paths";
-import { publishedProjects, projectCVAnchor } from "../../lib/projects";
+import { publishedProjects } from "../../lib/projects";
 export async function getStaticPaths() {
   return (await publishedProjects()).map((project) => ({
     params: { id: project.id },
@@ -32,9 +32,6 @@ const metadata = [
   ["Collaborators", project.data.collaborators],
   ["Status", project.data.status],
 ];
-const cvEntry =
-  project.data.cv_entry ||
-  (project.data.include_in_cv ? projectCVAnchor(project) : undefined);
 ---
 
 <Base
@@ -93,12 +90,6 @@ const cvEntry =
       <aside class="related-content" aria-label="Related content">
         <p class="eyebrow">Follow the connection</p>
         <div class="related-grid">
-          {cvEntry && (
-            <div>
-              <a href={href(`cv/#${cvEntry}`)}>Back to the CV entry →</a>
-              <p>The experience behind this case study.</p>
-            </div>
-          )}
           <div>
             <a href={href("work/")}>Explore all work →</a>
             <p>Projects, questions, and supporting evidence.</p>
