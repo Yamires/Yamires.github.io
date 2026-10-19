@@ -13,7 +13,7 @@ test("production pages enforce CSP without blocking their own resources", async 
     "/",
     "/cv/",
     "/work/covasim/",
-    "/research/",
+    "/work/",
     "/research/covasim/",
   ]) {
     await page.goto(path);

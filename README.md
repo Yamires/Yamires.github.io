@@ -129,10 +129,6 @@ Official references: [Markdown in Astro](https://docs.astro.build/en/guides/mark
 - To publish: run **Deploy portfolio** from Actions on `main` after **Check portfolio** passes. To roll back: revert the unwanted change, let checks pass, and run the deployment again. To take the site offline: unpublish it in Settings → Pages.
 
 
-## Edit the Research overview
+## Research navigation
 
-`/research/` introduces the overall direction, then lists expandable research projects and publications/research outputs. The existing `/research/covasim/` web poster stays at its original address, including links from Work and the homepage.
-
-Copy `templates/research-entry.md` into `src/content/research/` to add a project, publication, manuscript, poster, or presentation. Edit the short `summary` and `status` shown when collapsed, and write the expanded text in Markdown. Only entries with `draft: false` appear. `display_order` sorts entries within each section. Add only confirmed dates, authors, venues, and artifact links; manuscripts remain explicitly marked as work in progress until their status changes. Draft content is still visible in the public repository.
-
-The filename forms a stable entry anchor: `covasim.md` becomes `/research/#research-covasim`. Shared entry links open and highlight their target with JavaScript. Native disclosures remain keyboard-operable and usable without JavaScript. Multiple entries may stay open for comparison. The poster includes a return link to its project entry.
+Work contains a short introduction to the research direction and the existing project listing. There is no separate Research overview in navigation; the old `/research/` address redirects to `/work/`. The Covasim poster remains at `/research/covasim/` with its existing Work and homepage links.
