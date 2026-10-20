@@ -15,3 +15,6 @@ cv_yamirPoldoSilva_Deloitte-2.pdf
 *.p12
 *.pfx
 covasim-poster-A1.pptx (1).pdf
+
+# Unpublished camera originals and local working files
+.local/

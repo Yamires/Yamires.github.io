@@ -231,7 +231,7 @@ test("confirmed CV identity, education, research continuity and contacts are pre
   }
 });
 
-test("project drafts stay unpublished and photography uses a Markdown-authored placeholder", async ({
+test("project drafts stay unpublished and Markdown-authored travel photographs replace the placeholder", async ({
   page,
   request,
 }) => {
@@ -239,13 +239,19 @@ test("project drafts stay unpublished and photography uses a Markdown-authored p
   await expect(page.locator("#about")).toContainText(
     "travelling and photography",
   );
-  await expect(page.locator("#photography img")).toHaveAttribute(
-    "src",
-    /images\/photography\/placeholder\.svg$/,
-  );
-  await expect(page.locator("#photography")).toContainText(
-    "Photograph forthcoming",
-  );
+  const photographs = page.locator("#photography .photograph");
+  expect(await photographs.count()).toBeGreaterThan(0);
+  expect(await photographs.count()).toBeLessThanOrEqual(12);
+  await expect(page.locator("#photography")).not.toContainText("Photograph forthcoming");
+  for (const photograph of await photographs.all()) {
+    const image = photograph.locator("img");
+    await expect(image).toHaveAttribute("src", /images\/photography\/.+\.webp$/);
+    await expect(image).toHaveAttribute("alt", /.+/);
+    await expect(image).toHaveAttribute("loading", "lazy");
+    await image.scrollIntoViewIfNeeded();
+    await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect(photograph.locator("a")).toHaveAttribute("href", await image.getAttribute("src") || "");
+  }
   await page.goto("/work/");
   await expect(page.locator(".project-row")).toHaveCount(1);
   for (const id of [
