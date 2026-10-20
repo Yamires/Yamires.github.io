@@ -1,3 +1,4 @@
+import type {} from "mdast-util-to-hast";
 import type { Root, RootContent, Nodes } from "mdast";
 
 const sections = new Map([
@@ -12,6 +13,12 @@ export default function remarkContent({ base = "/" }: { base?: string } = {}) {
   const prefix = base.replace(/\/$/, "");
   return (tree: Root) => {
     function resolveAssets(node: Nodes) {
+      if (node.type === "image") {
+        node.data = {
+          ...node.data,
+          hProperties: { ...node.data?.hProperties, loading: "lazy", decoding: "async" },
+        };
+      }
       if (
         (node.type === "image" || node.type === "link") &&
         node.url.startsWith("/") &&
