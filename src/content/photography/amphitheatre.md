@@ -7,4 +7,4 @@ display_order: 5
 draft: false
 ---
 
-[![The curved stone façade of an ancient amphitheatre, with rows of arches and visitors at street level.](/images/photography/amphitheatre.webp)](/images/photography/amphitheatre.webp)
+[![Close view of an ancient amphitheatre’s curved stone façade, with rows of arches in sunlight beneath a blue sky.](/images/photography/amphitheatre.webp)](/images/photography/amphitheatre.webp)

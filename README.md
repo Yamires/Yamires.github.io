@@ -80,7 +80,7 @@ Ordinary Markdown paragraphs, lists, emphasis, and images work inside these sect
 
 Keep `year` quoted, for example `year: "2026"`. Empty location/year/caption fields are omitted. Use public image paths starting `/images/`; the build adds the GitHub Pages repository base path automatically. You may also wrap the image in an ordinary Markdown link to its full-size file.
 
-The current selection contains ten travel photographs with descriptive titles and alt text; location, year, and caption fields are left empty until confirmed. Original JPEG/RAW files are preserved locally in `.local/photography-originals/`, ignored by Git and outside the published site. The RAW photograph uses its full-size embedded JPEG preview, with the original camera orientation applied. WebP exports preserve the framing and use a maximum dimension of 1600px. Markdown images load lazily and decode asynchronously.
+The current selection contains eleven travel photographs with descriptive titles and alt text; location, year, and caption fields are left empty until confirmed. Original JPEG/RAW files are preserved locally in `.local/photography-originals/`, ignored by Git and outside the published site. The RAW photograph uses its full-size embedded JPEG preview, with the original camera orientation applied. WebP exports preserve the framing and use a maximum dimension of 1600px. Markdown images load lazily and decode asynchronously.
 
 The About page shows up to twelve published photographs, ordered by `display_order`. Start with a considered selection of six. One clearly labeled neutral placeholder is shown until a real photograph is published; it then disappears automatically. No locations, years, or captions are invented.
 
