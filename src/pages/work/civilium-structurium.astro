@@ -25,25 +25,80 @@ const demoUrl = href("civilium/index.html");
     <p class="lead">{project.data.summary}</p>
     <p class="metadata">{project.data.date_display} · Browser-based demo</p>
   </header>
-  <iframe
-    class="calculator-frame"
-    src={demoUrl}
-    title="Civilium Structurium calculator"
-    width="100%"
-    height="900"
-    loading="lazy"
-  ></iframe>
-  <p class="calculator-link">
-    <a href={demoUrl} target="_blank" rel="noopener">
-      Open the calculator in a separate tab
-    </a>
-  </p>
+  <aside
+    class="calculator-phone-notice"
+    aria-labelledby="calculator-device-heading"
+  >
+    <h2 id="calculator-device-heading">Open on a tablet or desktop</h2>
+    <p>
+      This calculator is designed for larger screens. Please visit this page on
+      a tablet or computer to use the interactive demo.
+    </p>
+  </aside>
+  <div class="calculator-desktop">
+    <div id="calculator-container"></div>
+    <template id="calculator-template">
+      <iframe
+        class="calculator-frame"
+        src={demoUrl}
+        title="Civilium Structurium calculator"
+        width="100%"
+        height="900"
+        loading="lazy"
+      ></iframe>
+    </template>
+    <noscript>
+      <p>Use the link below to open the calculator in a separate tab.</p>
+    </noscript>
+    <p class="calculator-link">
+      <a href={demoUrl} target="_blank" rel="noopener">
+        Open the calculator in a separate tab
+      </a>
+    </p>
+  </div>
   <a class="section-end-link" href={href("work/")}>
     Back to Work →
   </a>
 </Base>
 
+<script>
+  const container = document.querySelector("#calculator-container");
+  const template = document.querySelector<HTMLTemplateElement>(
+    "#calculator-template",
+  );
+  const screen = window.matchMedia("(min-width: 768px)");
+  function updateCalculator() {
+    if (!container || !template) return;
+    if (screen.matches) {
+      if (!container.hasChildNodes())
+        container.append(template.content.cloneNode(true));
+    } else {
+      container.replaceChildren();
+    }
+  }
+  updateCalculator();
+  screen.addEventListener("change", updateCalculator);
+</script>
+
 <style>
+  .calculator-desktop {
+    display: none;
+  }
+  .calculator-phone-notice {
+    padding-block: 24px;
+    border-block: 1px solid var(--rule);
+  }
+  .calculator-phone-notice h2 {
+    margin-bottom: 12px;
+  }
+  @media (min-width: 768px) {
+    .calculator-desktop {
+      display: block;
+    }
+    .calculator-phone-notice {
+      display: none;
+    }
+  }
   .calculator-frame {
     display: block;
     width: 100%;

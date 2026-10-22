@@ -186,6 +186,8 @@ The complete supplied export is preserved in `embedded_CivS/`. The published cop
 3. Keep its service worker scoped to `./` so it controls only the calculator directory.
 4. Preview `/work/civilium-structurium/` and `/civilium/index.html`. Check calculations, configuration persistence, and the separate-tab link. Check with a fresh browser context as well as an existing service-worker installation.
 
+The calculator is available at viewport widths of 768px and above. Smaller screens show a tablet/desktop message and do not load the calculator bundle. The portfolio page creates its iframe only at eligible widths; `public/civilium/screen-gate.js` also gates the separate calculator address. When replacing the export, preserve this screen gate and its message/styles in `index.html`, and update the service-worker precache revisions for changed files.
+
 The iframe URL uses the existing `BASE_URL`-aware helper. Its styles belong in CSS because the portfolio's CSP rejects inline style attributes. The exported calculator runs independently of Astro's generated page CSP. The published copy has one accessibility correction: the profile results grid always defines its four standard columns, even before a calculation. Its service-worker precache revision is updated for that modified asset. The original `embedded_CivS/` export is unchanged. When replacing the demo, retain that behavior in the upstream source or verify the new export passes the accessibility test.
 
 ### Verify an edit

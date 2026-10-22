@@ -6,9 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Civilium Structurium</title>
     <meta name="theme-color" content="#3367D6" />
-    <script type="module" crossorigin src="./assets/index-5BI5Xh8Z.js"></script>
-  <link rel="manifest" href="./manifest.webmanifest"></head>
+    <script type="module" crossorigin src="./screen-gate.js"></script>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <style>
+      .screen-notice {
+        max-width: 36rem;
+        margin: 4rem auto;
+        padding: 1.5rem;
+        font:
+          1rem/1.6 system-ui,
+          sans-serif;
+        color: #203f37;
+      }
+      #root {
+        display: none;
+      }
+      .calculator-supported .screen-notice {
+        display: none;
+      }
+      .calculator-supported #root {
+        display: block;
+      }
+    </style>
+  </head>
   <body>
+    <main class="screen-notice">
+      <h1>Open on a tablet or desktop</h1>
+      <p>
+        This calculator is designed for larger screens. Please visit this page
+        on a tablet or computer to use the interactive demo.
+      </p>
+    </main>
     <div id="root"></div>
   </body>
 </html>
