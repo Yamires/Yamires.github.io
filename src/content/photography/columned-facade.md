@@ -3,7 +3,7 @@ title: "Columned façade"
 location: ""
 year: ""
 caption: ""
-display_order: 11
+display_order: 6
 draft: false
 ---
 
