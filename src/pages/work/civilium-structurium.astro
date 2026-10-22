@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import { publishedProjects } from "../../lib/projects";
+import { href } from "../../lib/paths";
+
+const project = (await publishedProjects()).find(
+  (entry) => entry.id === "civilium-structurium",
+);
+if (!project) return Astro.redirect(href("work/"));
+const demoUrl = href("civilium/index.html");
+---
+
+<Base
+  title={project.data.title}
+  description={project.data.summary}
+  active="work"
+>
+  <header class="page-masthead">
+    <p class="breadcrumb">
+      <a href={href("work/")}>Work</a>
+      <span aria-hidden="true">/</span>Civilium Structurium
+    </p>
+    <p class="eyebrow">Software / interactive demo</p>
+    <h1>Civilium Structurium</h1>
+    <p class="lead">{project.data.summary}</p>
+    <p class="metadata">{project.data.date_display} · Browser-based demo</p>
+  </header>
+  <iframe
+    class="calculator-frame"
+    src={demoUrl}
+    title="Civilium Structurium calculator"
+    width="100%"
+    height="900"
+    loading="lazy"
+  ></iframe>
+  <p class="calculator-link">
+    <a href={demoUrl} target="_blank" rel="noopener">
+      Open the calculator in a separate tab
+    </a>
+  </p>
+  <a class="section-end-link" href={href("work/")}>
+    Back to Work →
+  </a>
+</Base>
+
+<style>
+  .calculator-frame {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+  }
+  .calculator-link {
+    margin-block: 20px;
+  }
+  @media print {
+    .calculator-frame {
+      display: none;
+    }
+  }
+</style>

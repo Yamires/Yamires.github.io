@@ -10,7 +10,7 @@ export default defineConfig({
   },
   webServer: {
     command: "npm run build && npm run preview -- --port 4322 --ignore-lock",
-    url: "http://127.0.0.1:4322",
+    url: `http://127.0.0.1:4322${(process.env.BASE_PATH || "").replace(/\/$/, "")}/`,
     reuseExistingServer: false,
   },
 });

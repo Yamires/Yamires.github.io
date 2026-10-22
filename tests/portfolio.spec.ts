@@ -1,19 +1,30 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("Covasim titles and Read case study links open the poster page", async ({
+test("Covasim titles and actions link directly to the poster PDF", async ({
   page,
+  request,
 }) => {
   for (const route of ["/work/", "/"]) {
-    for (const selector of [".project-row .row-action", ".project-row h3 a"]) {
-      await page.goto(route);
-      await page.locator(selector).click();
-      await expect(page).toHaveURL(/\/research\/covasim\/$/);
-      await expect(page.locator("#original-poster summary")).toContainText(
-        "View original poster",
+    await page.goto(route);
+    const poster = page
+      .locator(".project-row")
+      .filter({ hasText: "Domain-relevant software evolution" });
+    for (const selector of [".row-action", "h3 a"]) {
+      await expect(poster.locator(selector)).toHaveAttribute(
+        "href",
+        "/artifacts/covasim-poster.pdf",
       );
     }
+    await expect(poster.locator(".row-action")).toContainText(
+      "View poster · PDF",
+    );
   }
+  expect(
+    (await request.get("/artifacts/covasim-poster.pdf")).headers()[
+      "content-type"
+    ],
+  ).toContain("application/pdf");
 });
 
 test("representative pages have no serious accessibility violations or runtime errors", async ({
@@ -28,7 +39,13 @@ test("representative pages have no serious accessibility violations or runtime e
     if (response.status() >= 400)
       errors.push(`${response.status()} ${response.url()}`);
   });
-  for (const route of ["/", "/cv/", "/work/covasim/", "/work/", "/research/covasim/"]) {
+  for (const route of [
+    "/",
+    "/cv/",
+    "/work/covasim/",
+    "/work/",
+    "/work/civilium-structurium/",
+  ]) {
     await page.goto(route);
     await page.screenshot({
       path: testInfo.outputPath(`${route.replaceAll("/", "-")}-desktop.png`),
@@ -86,27 +103,6 @@ test("CV filters and disclosure utilities are usable", async ({ page }) => {
   );
 });
 
-test("evidence selection is shareable and preserves the scientific caveat", async ({
-  page,
-}) => {
-  await page.goto("/research/covasim/");
-  await page.getByRole("button", { name: "Bin 2", exact: true }).click();
-  await expect(page).toHaveURL(/#bin-2$/);
-  await expect(page.locator("#bin-2")).toHaveAttribute("data-selected", "true");
-  await expect(
-    page.getByText(
-      "One retrospective Covasim episode; no causal or general claim.",
-      { exact: true },
-    ),
-  ).toBeVisible();
-  await page.reload();
-  await expect(
-    page.getByRole("button", { name: "Bin 2", exact: true }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Overview", exact: true }).click();
-  await expect(page.locator('[data-selected="true"]')).toHaveCount(0);
-});
-
 test("important content and native navigation remain accessible without JavaScript", async ({
   browser,
 }) => {
@@ -118,10 +114,14 @@ test("important content and native navigation remain accessible without JavaScri
   await expect(
     page.getByRole("link", { name: "Covasim case study" }),
   ).toBeVisible();
-  await page.goto("/research/covasim/");
-  await expect(page.locator("#bin-1")).toBeVisible();
-  await expect(page.locator("#bin-2")).toBeVisible();
-  await expect(page.locator("#bin-3")).toBeVisible();
+  await page.goto("/work/");
+  await expect(
+    page.getByRole("link", { name: /View poster · PDF:/ }),
+  ).toBeVisible();
+  await page.goto("/work/civilium-structurium/");
+  await expect(
+    page.getByRole("link", { name: "Open the calculator in a separate tab" }),
+  ).toBeVisible();
   await context.close();
 });
 
@@ -129,7 +129,13 @@ test("representative pages reflow and mobile navigation works", async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const route of ["/", "/cv/", "/work/covasim/", "/work/", "/research/covasim/"]) {
+  for (const route of [
+    "/",
+    "/cv/",
+    "/work/covasim/",
+    "/work/",
+    "/work/civilium-structurium/",
+  ]) {
     await page.goto(route);
     await page.screenshot({
       path: testInfo.outputPath(`${route.replaceAll("/", "-")}-mobile.png`),
@@ -161,7 +167,7 @@ test("pages reflow at narrow, tablet, and desktop sizes with reduced motion", as
       "/cv/",
       "/work/",
       "/work/covasim/",
-      "/research/covasim/",
+      "/work/civilium-structurium/",
       "/404.html",
     ]) {
       await page.goto(route);
@@ -242,22 +248,35 @@ test("project drafts stay unpublished and Markdown-authored travel photographs r
   const photographs = page.locator("#photography .photograph");
   expect(await photographs.count()).toBeGreaterThan(0);
   expect(await photographs.count()).toBeLessThanOrEqual(12);
-  await expect(page.locator("#photography")).not.toContainText("Photograph forthcoming");
+  await expect(page.locator("#photography")).not.toContainText(
+    "Photograph forthcoming",
+  );
   for (const photograph of await photographs.all()) {
     const image = photograph.locator("img");
-    await expect(image).toHaveAttribute("src", /images\/photography\/.+\.webp$/);
+    await expect(image).toHaveAttribute(
+      "src",
+      /images\/photography\/.+\.webp$/,
+    );
     await expect(image).toHaveAttribute("alt", /.+/);
     await expect(image).toHaveAttribute("loading", "lazy");
     await image.scrollIntoViewIfNeeded();
-    await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-    await expect(photograph.locator("a")).toHaveAttribute("href", await image.getAttribute("src") || "");
+    await expect
+      .poll(() =>
+        image.evaluate(
+          (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+    await expect(photograph.locator("a")).toHaveAttribute(
+      "href",
+      (await image.getAttribute("src")) || "",
+    );
   }
   await page.goto("/work/");
-  await expect(page.locator(".project-row")).toHaveCount(1);
+  await expect(page.locator(".project-row")).toHaveCount(2);
   for (const id of [
     "project-starter",
     "graphhopper",
-    "civilium-structurium",
     "kaggle-classification",
   ]) {
     expect((await request.get(`/work/${id}/`)).status()).toBe(404);
@@ -267,19 +286,37 @@ test("project drafts stay unpublished and Markdown-authored travel photographs r
   await expect(page.locator("#posters")).toContainText("Research poster");
 });
 
-test("CV describes exploratory research without causal claims or entry-link UI", async ({ page }) => {
+test("CV describes exploratory research without causal claims or entry-link UI", async ({
+  page,
+}) => {
   await page.goto("/cv/#covasim-research");
   const entry = page.locator("#covasim-research");
   await expect(entry).toHaveAttribute("open", "");
-  await expect(entry).toContainText("PELT, Interrupted Time Series, Difference-in-Differences");
-  await expect(entry).toContainText("did not provide sufficient evidence to establish causality");
+  await expect(entry).toContainText(
+    "PELT, Interrupted Time Series, Difference-in-Differences",
+  );
+  await expect(entry).toContainText(
+    "did not provide sufficient evidence to establish causality",
+  );
   await expect(entry).toContainText("exploratory pseudo-event study");
-  await expect(entry).toContainText("historical pseudo-events from the same repository");
+  await expect(entry).toContainText(
+    "historical pseudo-events from the same repository",
+  );
   await expect(entry).toContainText("without making causal claims");
   await expect(entry).toContainText("Cohen’s kappa");
-  for (const route of ["/cv/", "/work/covasim/", "/research/covasim/"]) {
+  for (const route of [
+    "/cv/",
+    "/work/covasim/",
+    "/work/civilium-structurium/",
+  ]) {
     await page.goto(route);
-    await expect(page.getByRole("link", { name: /Link to this entry|Related research entry|Research in the CV|Back to the CV entry/i })).toHaveCount(0);
-    await expect(page.locator(".linked-label, .entry-permalink")).toHaveCount(0);
+    await expect(
+      page.getByRole("link", {
+        name: /Link to this entry|Related research entry|Research in the CV|Back to the CV entry/i,
+      }),
+    ).toHaveCount(0);
+    await expect(page.locator(".linked-label, .entry-permalink")).toHaveCount(
+      0,
+    );
   }
 });

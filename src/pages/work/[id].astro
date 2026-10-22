@@ -6,10 +6,12 @@ import Section from "../../components/Section.astro";
 import { href, artifactHref } from "../../lib/paths";
 import { publishedProjects } from "../../lib/projects";
 export async function getStaticPaths() {
-  return (await publishedProjects()).map((project) => ({
-    params: { id: project.id },
-    props: { project },
-  }));
+  return (await publishedProjects())
+    .filter((project) => project.id !== "civilium-structurium")
+    .map((project) => ({
+      params: { id: project.id },
+      props: { project },
+    }));
 }
 const { project } = Astro.props;
 const { Content } = await render(project);

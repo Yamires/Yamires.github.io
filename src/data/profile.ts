@@ -91,10 +91,6 @@ export const cvSections: {
         links: [
           { label: "Covasim case study", href: "work/covasim/" },
           {
-            label: "Interactive research narrative",
-            href: "research/covasim/",
-          },
-          {
             label: "Original poster · PDF",
             href: "artifacts/covasim-poster.pdf",
           },

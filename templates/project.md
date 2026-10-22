@@ -8,6 +8,9 @@ organization: ""
 role: ""
 collaborators: ""
 status: ""
+# Optional: customize the listing action (for a PDF or interactive demo).
+# destination: artifacts/my-poster.pdf
+# action_label: View poster · PDF
 topics: []
 technologies: []
 draft: true
