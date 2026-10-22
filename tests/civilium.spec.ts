@@ -114,3 +114,58 @@ test("poster and calculator links resolve with the configured base path", async 
     `${base}/civilium/index.html`,
   );
 });
+
+test("phones show a device notice without loading the calculator; tablets can use it", async ({
+  page,
+}) => {
+  const calculatorRequests: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().includes(`${base}/civilium/`))
+      calculatorRequests.push(request.url());
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${base}/work/civilium-structurium/`);
+  await expect(
+    page.getByRole("heading", { name: "Open on a tablet or desktop" }),
+  ).toBeVisible();
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: "Open the calculator in a separate tab" }),
+  ).toBeHidden();
+  expect(calculatorRequests).toEqual([]);
+  await page.setViewportSize({ width: 767, height: 900 });
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expect(
+    page
+      .frameLocator("iframe")
+      .getByRole("combobox", { name: "Choisir une méthode" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Open on a tablet or desktop" }),
+  ).toBeHidden();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Open on a tablet or desktop" }),
+  ).toBeVisible();
+});
+
+test("the separate calculator address also blocks phone-sized screens", async ({
+  page,
+}) => {
+  const bundles: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().includes("/assets/")) bundles.push(request.url());
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${base}/civilium/index.html`);
+  await expect(
+    page.getByRole("heading", { name: "Open on a tablet or desktop" }),
+  ).toBeVisible();
+  expect(bundles).toEqual([]);
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expect(
+    page.getByRole("combobox", { name: "Choisir une méthode" }),
+  ).toBeVisible();
+});
