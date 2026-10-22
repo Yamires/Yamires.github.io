@@ -2,13 +2,15 @@ export const profile = {
   name: "Yamir Alejandro Poldo Silva",
   affiliation: "Université de Montréal",
   program: "M.Sc. in Programming and Software Engineering",
+  expectedGraduation: "2028",
+  headline: "Software developer & graduate researcher",
   email: "poldosiy@iro.umontreal.ca",
   personalEmail: "alej.poldo@gmail.com",
   github: "https://github.com/Yamires",
   linkedin: "https://www.linkedin.com/in/yamiraps",
-  updated: "2026-10-18",
+  updated: "2026-10-22",
   summary:
-    "Master’s student in Programming and Software Engineering at Université de Montréal, interested in how developers understand software and how that understanding shapes its evolution. My research examines how assumptions are represented in software, how domain knowledge changes, and what repository history can reveal about developers’ responses. My experience includes repository analysis, software testing, programming, and technical teaching.",
+    "Software developer with experience in Python, Java, full-stack applications, and automated testing. I’m pursuing a master’s in Programming and Software Engineering at Université de Montréal, with research in software architecture, domain modeling, and software evolution.",
 };
 
 export interface CVEntry {
@@ -32,11 +34,11 @@ export interface CVEntry {
 export const education = [
   {
     id: "masters",
-    date: "2026–2027 · Expected completion",
+    date: `2026–${profile.expectedGraduation} · Expected completion`,
     title: "M.Sc. in Programming and Software Engineering",
     organization: "Université de Montréal",
     summary:
-      "Research interests: software evolution, empirical software engineering, and how changing domain knowledge affects assumptions represented in software.",
+      "Research in software architecture, domain modeling, and software evolution.",
   },
   {
     id: "bachelors",
@@ -66,34 +68,30 @@ export const cvSections: {
         title: "Software Evolution Research",
         organization: "GEODES · Université de Montréal",
         summary:
-          "Investigating how changing domain knowledge affects assumptions embedded in software, and how developers’ responses can be observed through repository history.",
+          "Built a Python/LLM pipeline to study domain-related changes in software repositories.",
         stages: [
           {
             title: "Current graduate research",
             date: "2026–present",
             description:
-              "Continuing research at GEODES on domain knowledge, software assumptions, and software evolution. The research direction grew out of the summer internship, which helped frame the questions now guiding the work.",
+              "Studying software architecture, domain modeling, and software evolution, continuing the internship research.",
           },
           {
             title: "Research internship",
-            date: "Summer 2026",
+            date: "May–August 2026",
             bullets: [
-              "Investigated how changes in scientific domain knowledge are reflected in Covasim’s repository history and software evolution.",
-              "Developed a Python pipeline using the Gemini API to classify and analyze artifacts from software repositories.",
-              "Helped construct a gold-standard dataset from classifications performed independently by two annotators, and assessed inter-annotator agreement using Cohen’s kappa.",
-              "Explored PELT, Interrupted Time Series, Difference-in-Differences, and other time-series methods; these analyses did not provide sufficient evidence to establish causality.",
-              "Adopted an exploratory pseudo-event study approach, comparing domain-relevant development following a domain change with historical pseudo-events from the same repository, without making causal claims.",
-              "Documented the methodology, preliminary findings, analytical decisions, and limitations in preparation for a scientific manuscript.",
+              "Built a Python/LLM pipeline to extract and classify approximately 8,500 commits from 30 repositories across two open-source systems.",
+              "Created a gold-standard dataset of 330 commits annotated independently by two people (Cohen’s kappa: 0.764).",
+              "Validated a Gemini 2.5 Flash commit classifier: 79.0% accuracy and F1: 0.755 on the reference dataset.",
+              "Found that 85.3% of commits (128/150) in three post-event intervals concerned domain representation, exceeding the historical 95th percentile.",
             ],
           },
         ],
-        description: "Manuscript in progress; target venue to be determined.",
+        description:
+          "Preliminary findings do not establish causality. Manuscript in progress; venue to be determined.",
         links: [
           { label: "Covasim case study", href: "work/covasim/" },
-          {
-            label: "Original poster · PDF",
-            href: "artifacts/covasim-poster.pdf",
-          },
+          { label: "Poster · PDF", href: "artifacts/covasim-poster.pdf" },
         ],
       },
     ],
@@ -107,15 +105,13 @@ export const cvSections: {
       {
         id: "ift1227",
         date: "2023–present",
-        title: "Teaching Assistant — IFT1227, Computer Architecture I",
+        title: "Teaching Assistant — IFT1215 / IFT1227",
         organization: "Université de Montréal",
         summary:
-          "Explaining computer architecture concepts and supporting students through practical sessions, teaching materials, and consistent assessment.",
+          "Support students in computer systems and computer architecture.",
         bullets: [
-          "Lead practical sessions and help students analyze and solve technical problems.",
-          "Prepare, review, and validate exercises, documentation, and teaching materials.",
-          "Grade assignments and examinations using established criteria and marking schemes.",
-          "Adapt explanations to students with different levels of technical experience.",
+          "Support cohorts of 120 students per term through practical sessions, technical troubleshooting, and individual meetings.",
+          "Assess two assignments per course per term and explain technical concepts to students with varied experience.",
         ],
       },
     ],
@@ -132,40 +128,25 @@ export const cvSections: {
         title: "Personal Lines Insurance Agent",
         organization: "Beneva",
         summary:
-          "Worked with complex information systems and business rules to maintain accurate client records and explain insurance information clearly.",
-        bullets: [
-          "Used enterprise information systems to process and track client files, verify information, and document changes accurately.",
-          "Analyzed client needs and applied business rules to recommend appropriate solutions.",
-          "Explained complex rules clearly and handled confidential information responsibly.",
-        ],
-        description:
-          "Systems used: Guidewire PolicyCenter, BillingCenter, and ClaimCenter, in an end-user capacity.",
+          "Processed regulated transactions using Guidewire PolicyCenter and BillingCenter, applying complex business rules.",
+        bullets: ["Ranked in the team’s Top 10 twice in 2026."],
       },
     ],
   },
 ];
 
 export const skillGroups = [
-  { title: "Languages", items: "Python, Java, JavaScript, SQL" },
+  { title: "Programming", items: "Python, Java, JavaScript, SQL" },
   {
-    title: "Data / Analysis",
-    items: "pandas, scikit-learn, time-series analysis",
+    title: "Development",
+    items: "Flask, React, REST APIs, PostgreSQL, pandas, SymPy",
   },
   {
-    title: "Software Testing",
-    items: "Unit testing, JUnit, Mockito, mutation testing with PIT",
-  },
-  { title: "Web / Backend", items: "React, Flask, REST APIs" },
-  { title: "Databases", items: "PostgreSQL" },
-  {
-    title: "Tools / DevOps",
-    items: "Git, GitHub, GitHub Actions, continuous integration",
-  },
-  {
-    title: "Research Methods",
+    title: "Testing & Tools",
     items:
-      "Repository mining, artifact classification, gold-standard dataset construction, inter-annotator agreement using Cohen’s kappa",
+      "JUnit, Mockito, pytest, PIT, Git, GitHub Actions, Docker, Linux, CI/CD",
   },
+  { title: "Spoken Languages", items: "French, English, Spanish" },
 ];
 
 export const evidence = [

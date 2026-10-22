@@ -1,38 +1,35 @@
 ---
-title: "Civilium Structurium — Civil Engineering Web Application"
-summary: "A civil engineering web application for checking structural sections against CSA S16 requirements, with an interactive browser-based calculator."
+title: "Civilium Structurium"
+summary: "A full-stack application for steel-section calculations and selection under CSA S16, with configurable engineering rules."
 date_display: "2025"
 category: "Software"
-context: "Web application project; team and course context to confirm."
-technologies: ["React", "Flask", "PostgreSQL", "SymPy", "Auth0", "Render"]
+context: "Full-stack engineering application"
+technologies:
+  ["Python", "Flask", "React", "PostgreSQL", "SymPy", "Auth0", "Render"]
 draft: false
 action_label: Open calculator
-featured: false
-include_in_cv: false
-display_order: 11
+featured: true
+include_in_cv: true
+display_order: 1
 cv_highlights:
-  [
-    "Developed automated section checks by translating technical rules into validations using SymPy.",
-    "Designed a REST API connecting the interface, backend, PostgreSQL database, and calculation engine.",
-    "Integrated Auth0 for application authentication and access.",
-  ]
+  - Designed a full-stack PWA for CSA S16 steel-section calculations and selection using Flask, React, and PostgreSQL.
+  - Built a YAML DSL and symbolic engine using dependency graphs, topological sorting, and SymPy to change calculation rules without editing Python code.
+  - Validated the backend with 15 automated tests; the original calculation pipeline averaged approximately 17 ms over 1,000 iterations.
 links: []
 ---
 
 ## 01 Context
 
-Web application project; team and course context to confirm.
+A full-stack application for structural steel calculations and section selection under CSA S16.
 
 ## 02 Problem
 
-<!-- Add the problem and constraints in your own words. -->
+Make engineering calculations interactive and allow calculation rules to evolve without changes to application code.
 
 ## 03 Approach
 
-- Developed automated section checks by translating technical rules into validations using SymPy.
-- Designed a REST API connecting the interface, backend, PostgreSQL database, and calculation engine.
-- Integrated Auth0 for application authentication and access.
+Built a PWA with React, Flask, and PostgreSQL. A YAML DSL describes calculation rules; a symbolic engine resolves dependencies through topological sorting and SymPy. Auth0 handles authentication, and the application was hosted on Render.
 
 ## 04 Result
 
-<!-- Add verified outcomes and limitations. Do not infer metrics. -->
+Validated the backend with 15 automated tests. The original calculation pipeline averaged approximately 17 ms over 1,000 iterations. The portfolio hosts a separate browser-based demo; this benchmark describes the original Python pipeline.

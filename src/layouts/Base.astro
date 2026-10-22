@@ -13,7 +13,7 @@ interface Props {
 }
 const {
   title,
-  description = `Research, software, and the assumptions between them. The personal portfolio of ${profile.name}.`,
+  description = `Software development and research. The portfolio of ${profile.name}.`,
   active = "",
 } = Astro.props;
 const links = [
@@ -80,13 +80,24 @@ const links = [
     <footer class="site-footer wrap">
       <div>
         <a href={href()}>{profile.name}</a>
-        <span class="metadata">Research & software</span>
+        <span class="metadata">Software & research</span>
         <a href={profile.github}>GitHub ↗</a>
         <a href={profile.linkedin}>LinkedIn ↗</a>
       </div>
       <div class="footer-meta">
         <span class="metadata">
-          Updated <time datetime={profile.updated}>18 Oct 2026</time>
+          Updated{" "}
+          <time datetime={profile.updated}>
+            {new Date(`${profile.updated}T00:00:00Z`).toLocaleDateString(
+              "en-GB",
+              {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                timeZone: "UTC",
+              },
+            )}
+          </time>
         </span>
         <a href="#top">Back to top ↑</a>
       </div>

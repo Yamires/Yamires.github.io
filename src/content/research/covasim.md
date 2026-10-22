@@ -13,8 +13,6 @@ links:
 
 ### Research question
 
-How does domain-relevant development evolve following a domain change, and how unusual is that evolution relative to the project’s historical development?
+How does software evolve when the domain knowledge it represents changes?
 
-The preliminary Covasim study connects new scientific evidence about immune escape to repository artifacts and historical comparisons. It examines how immunity-related representations were extended, reworked, and consolidated.
-
-The broader research direction grew out of the GEODES internship and continues at the same lab. The poster presents the preliminary method, findings, representative commits, and scientific caveats. It describes one retrospective episode; it does not establish causality or generalize to other projects.
+The Covasim study compares immunity-related repository changes with historical development patterns. Preliminary findings cover one retrospective episode and do not establish causality. This research began during the GEODES internship and continues in graduate study.

@@ -19,12 +19,14 @@ npm run preview
 
 ## Edit the CV and About
 
-- Identity, contact links, Profile, Education, research/teaching/professional entries, and skills: `src/data/profile.ts`.
+- Identity, contact links, Profile, Education, expected graduation, research/teaching/professional entries, and skills: `src/data/profile.ts`.
 - Who Am I prose: `src/pages/index.astro`.
 - Selected CV projects: Markdown files in `src/content/projects/`.
 - Research evidence: the `evidence` collection in `src/data/profile.ts` and the archived poster PDF.
 
 The CV has eight sections: Profile; Education; Research Experience; Teaching Experience; Professional Experience; Selected Projects; Technical Skills; Posters & Research Outputs. Profile, Education, Skills, and the poster citation stay visible. Other entries are native disclosures, with optional section filtering, stable anchors, browser-history support, and print/PDF export. The existing `cv/#covasim-research` link remains valid.
+
+The English portfolio follows the latest French CV for experience, dates, and reported results, while retaining the confirmed ongoing graduate research. Keep introductions brief and place detailed contributions in CV disclosures or project pages. The supplied French CV is a local reference, excluded from Git and the public site.
 
 The current research continues at GEODES after the summer 2026 internship that helped frame it. The manuscript is in progress, with venue TBD; no publication or accepted submission is claimed. Education and dates follow the owner's confirmed information. The original combined Deloitte application PDF is source material only, is ignored by Git, and is not a public CV download. Print/PDF export creates a CV-only document from the web page.
 
@@ -49,7 +51,7 @@ The filename becomes `/work/my-project/`. Keep filenames stable after publishing
 | `topics`, `technologies` | Brief context in project rows and CV summaries                                                                                                                                |
 | `links`                  | Array of `label`, `url`, and optional `description`                                                                                                                           |
 
-The work index contains all published projects. Project entries keep stable CV anchors for shared URLs, without displaying entry-permalink or related-CV-entry links. Covasim is not duplicated under Selected Projects.
+The work index contains all published projects, with Civilium followed by Covasim. Both appear in homepage Selected Work; Civilium also appears in CV Selected Projects. Project entries keep stable CV anchors for shared URLs, without displaying entry-permalink or related-CV-entry links. Covasim is not duplicated under Selected Projects.
 
 GraphHopper and Kaggle are retained as **unpublished optional examples**, based on the supplied CV. They do not fix the public selection. Edit, replace, or publish them as you choose. `project-starter.md` is an unpublished blank example. Drafts are excluded in every build, including development.
 
@@ -138,8 +140,8 @@ Use the table to find the source for the change you want to make. Edit source fi
 
 | Page / area | Source to edit | Structure to follow |
 | --- | --- | --- |
-| About `/` | `src/pages/index.astro` | Intro → Who am I → Selected work → Background → Photographs → Contact. Edit prose inside the existing sections; keep their IDs for navigation. |
-| Identity and contacts | `src/data/profile.ts` | Update the exported profile values once; About, CV, navigation, and footer reuse them. The footer's displayed update date is in `src/layouts/Base.astro`. |
+| About `/` | `src/pages/index.astro` | Intro → Who am I → Selected work → Experience & skills → Photographs → Contact. Edit prose inside the existing sections; keep their IDs for navigation. |
+| Identity and contacts | `src/data/profile.ts` | Update the exported profile values once; About, CV, navigation, and footer reuse them. The shared `expectedGraduation` and `updated` values also supply the displayed graduation year and footer date. |
 | CV `/cv/` | `src/data/profile.ts`; `src/pages/cv/index.astro` | Put experience, education, and skills in the data file. Use the Astro file for section layout and poster citation. Keep entry IDs stable for shared links. |
 | Work `/work/` | `src/pages/work/index.astro`; `src/content/projects/*.md` | Edit the page introduction in Astro. Edit each project's title, summary, date, topics, destination, and order in Markdown metadata. |
 | Standard project `/work/<filename>/` | `src/content/projects/<filename>.md` | Copy `templates/project.md`; complete Context → Problem → Approach → Result. Artifacts are generated from `links`. Layout lives in `src/pages/work/[id].astro`. |

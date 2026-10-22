@@ -34,7 +34,7 @@ const projectEntries: CVEntry[] = projects.map((project) => ({
   technologies: project.data.technologies,
   bullets: project.data.cv_highlights,
   links: [
-    { label: "Full project case study", href: `work/${project.id}/` },
+    { label: project.data.action_label, href: `work/${project.id}/` },
     ...project.data.links.map((link) => ({
       label: link.label,
       href: link.url,
@@ -45,11 +45,12 @@ const projectEntries: CVEntry[] = projects.map((project) => ({
 
 <Base title="Curriculum vitae" active="cv">
   <header class="page-masthead">
-    <p class="eyebrow">Curriculum vitae / research & software</p>
+    <p class="eyebrow">Curriculum vitae / software & research</p>
     <h1>{profile.name}</h1>
-    <p class="lead">Master’s student in Programming and Software Engineering</p>
+    <p class="lead">{profile.headline}</p>
     <p class="metadata">
-      Université de Montréal · GEODES · Expected completion 2027
+      {profile.affiliation} · GEODES · Expected completion{" "}
+      {profile.expectedGraduation}
     </p>
     <div class="link-group cv-contact">
       <a href={`mailto:${profile.email}`}>Academic email ↗</a>
@@ -58,9 +59,7 @@ const projectEntries: CVEntry[] = projects.map((project) => ({
       <a href={profile.linkedin}>LinkedIn ↗</a>
     </div>
     <div class="masthead-bottom">
-      <p class="metadata">
-        Research, teaching, and the software work that connects them.
-      </p>
+      <p class="metadata">Software development, research, and teaching.</p>
       <button class="text-button" data-print hidden>
         Print / save as PDF ↗
       </button>

@@ -14,21 +14,21 @@ const projects = (await publishedProjects())
 <Base title="About" active="about">
   <div class="home-intro">
     <p class="eyebrow">
-      Master’s student <span class="inline-divider">/</span>{" "}
+      {profile.headline} <span class="inline-divider">/</span>{" "}
       {profile.affiliation}
     </p>
     <h1>{profile.name}</h1>
     <p class="intro-statement">
-      Understanding how software evolves
-      <br class="desktop-break" /> when the world it represents changes
+      Building maintainable software
+      <br class="desktop-break" /> and studying how it evolves
       <span class="accent">.</span>
     </p>
     <p class="intro-support">
-      Domain knowledge. Repository evidence. Software evolution.
+      Python, Java, full-stack development, and software testing.
     </p>
     <div class="link-group">
       <a class="action-link" href={href("cv/")}>
-        Explore my CV <span aria-hidden="true">→</span>
+        View CV <span aria-hidden="true">→</span>
       </a>
       <a href="#selected-work">
         Selected work <span aria-hidden="true">↓</span>
@@ -44,37 +44,28 @@ const projects = (await publishedProjects())
     <div class="about-grid">
       <div class="prose">
         <p class="lead">
-          I’m a master’s student in Programming and Software Engineering at
-          Université de Montréal, continuing my research at GEODES.
+          I develop software in Python and Java, with experience in full-stack
+          applications, automated testing, and repository analysis. I’m pursuing
+          a master’s in Programming and Software Engineering at Université de
+          Montréal, focused on software architecture and maintainable systems.
         </p>
         <p>
-          I’m interested in how people understand software—the assumptions they
-          make, the knowledge they rely on, and how those things shape software
-          evolution.
-        </p>
-        <p>
-          My current research grew out of a summer internship at the same lab.
-          It explores how changing domain knowledge can make assumptions
-          embedded in software outdated, how developers respond, and what
-          repository history can reveal about those changes.
-        </p>
-        <p>
+          At GEODES, I study how changing domain knowledge shapes software
+          evolution, continuing work begun during my research internship.
           Outside software and research, I enjoy travelling and photography.
         </p>
       </div>
-      <aside class="interest-rail" aria-label="Research interests">
-        <p class="eyebrow">Areas of inquiry</p>
+      <aside class="interest-rail" aria-label="Interests">
+        <p class="eyebrow">Interests</p>
         <ul>
+          <li>Software architecture</li>
+          <li>Domain modeling</li>
           <li>Software evolution</li>
-          <li>Empirical software engineering</li>
-          <li>Domain-assumption drift</li>
-          <li>Repository analysis</li>
-          <li>Scientific software</li>
         </ul>
         <p class="metadata">
           {profile.program}
           <br />
-          Expected completion 2027
+          Expected completion {profile.expectedGraduation}
         </p>
       </aside>
     </div>
@@ -87,27 +78,24 @@ const projects = (await publishedProjects())
       All work →
     </a>
   </Section>
-  <Section id="background" number="03" title="Explore my background">
+  <Section id="background" number="03" title="Experience & skills">
     <div class="split-action">
       <p class="prose">
-        A professional document you can explore. Open an entry for context,
-        follow its artifacts, or trace the work into a full case study.
+        Development, research, teaching, and professional experience.
       </p>
       <a class="action-link" href={href("cv/")}>
-        Open interactive CV →
+        View CV →
       </a>
     </div>
   </Section>
   <Section id="photography" number="04" title="Selected photographs">
-    <p class="prose">
-      A small space for travel and photography, alongside the technical work.
-    </p>
+    <p class="prose">Travel and photography beyond the code.</p>
     <Photography />
   </Section>
   <Section id="contact" number="05" title="Get in touch">
     <div class="split-action">
       <div>
-        <p class="lead">Questions, ideas, or a research connection?</p>
+        <p class="lead">Let’s discuss software or research.</p>
         <a class="contact-email" href={`mailto:${profile.email}`}>
           {profile.email} <span aria-hidden="true">↗</span>
         </a>
