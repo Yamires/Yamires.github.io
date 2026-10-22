@@ -8,7 +8,7 @@ test("Work keeps its project listing with a short research introduction and no R
     page.getByRole("heading", { name: "Work", exact: true }),
   ).toBeVisible();
   await expect(page.locator(".page-masthead")).toContainText(
-    "changing domain knowledge",
+    "software development and research",
   );
   await expect(page.locator(".project-row")).toHaveCount(2);
   await expect(page.locator(".research-entry")).toHaveCount(0);

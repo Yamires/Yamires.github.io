@@ -217,7 +217,7 @@ test("confirmed CV identity, education, research continuity and contacts are pre
     "M.Sc. in Programming and Software Engineering",
   );
   await expect(page.locator("#education")).toContainText(
-    "2026–2027 · Expected completion",
+    "2026–2028 · Expected completion",
   );
   await expect(page.locator("#education")).toContainText("3.56 / 4.3");
   await expect(page.locator("#ift1227")).toContainText("2023–present");
@@ -225,7 +225,9 @@ test("confirmed CV identity, education, research continuity and contacts are pre
   await expect(page.locator("#covasim-research")).toContainText(
     "Current graduate research",
   );
-  await expect(page.locator("#covasim-research")).toContainText("Summer 2026");
+  await expect(page.locator("#covasim-research")).toContainText(
+    "May–August 2026",
+  );
   await expect(page.locator("#covasim-research")).toContainText(
     "Manuscript in progress",
   );
@@ -292,18 +294,17 @@ test("CV describes exploratory research without causal claims or entry-link UI",
   await page.goto("/cv/#covasim-research");
   const entry = page.locator("#covasim-research");
   await expect(entry).toHaveAttribute("open", "");
-  await expect(entry).toContainText(
-    "PELT, Interrupted Time Series, Difference-in-Differences",
-  );
-  await expect(entry).toContainText(
-    "did not provide sufficient evidence to establish causality",
-  );
-  await expect(entry).toContainText("exploratory pseudo-event study");
-  await expect(entry).toContainText(
-    "historical pseudo-events from the same repository",
-  );
-  await expect(entry).toContainText("without making causal claims");
-  await expect(entry).toContainText("Cohen’s kappa");
+  for (const fact of [
+    "8,500 commits",
+    "330 commits",
+    "Cohen’s kappa: 0.764",
+    "79.0% accuracy",
+    "F1: 0.755",
+    "85.3%",
+    "do not establish causality",
+  ]) {
+    await expect(entry).toContainText(fact);
+  }
   for (const route of [
     "/cv/",
     "/work/covasim/",
@@ -319,4 +320,39 @@ test("CV describes exploratory research without causal claims or entry-link UI",
       0,
     );
   }
+});
+
+test("Civilium is featured across About, Work and CV with scoped engineering results", async ({
+  page,
+}) => {
+  for (const route of ["/", "/work/"]) {
+    await page.goto(route);
+    await expect(page.locator(".project-row")).toHaveCount(2);
+    await expect(page.locator(".project-row").first()).toContainText(
+      "Civilium Structurium",
+    );
+  }
+  await page.goto("/cv/#project-civilium-structurium");
+  const project = page.locator("#project-civilium-structurium");
+  await expect(project).toHaveAttribute("open", "");
+  for (const fact of [
+    "YAML",
+    "15 automated tests",
+    "1,000 iterations",
+    "17 ms",
+    "original calculation pipeline",
+  ]) {
+    await expect(project).toContainText(fact);
+  }
+  await expect(
+    project.getByRole("link", { name: "Open calculator" }),
+  ).toHaveAttribute("href", "/work/civilium-structurium/");
+  await expect(page.locator("#ift1227")).toContainText("IFT1215 / IFT1227");
+  await page.locator("#ift1227 summary").click();
+  await expect(page.locator("#ift1227")).toContainText("120 students");
+  await page.locator("#beneva summary").click();
+  await expect(page.locator("#beneva")).toContainText("Top 10");
+  await expect(page.locator("#skills")).toContainText(
+    "French, English, Spanish",
+  );
 });

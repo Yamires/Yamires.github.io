@@ -1,10 +1,10 @@
 ---
 title: Domain-relevant software evolution
-summary: A case study of Covasim, examining how software development responds to changes in the scientific knowledge it represents.
+summary: A Python/LLM study of how software evolves when scientific domain knowledge changes.
 category: Research
 destination: artifacts/covasim-poster.pdf
 action_label: View poster · PDF
-status: Preliminary findings · Manuscript in progress; venue to be determined
+status: Preliminary findings · Manuscript in progress
 date_display: 2026–present
 context: GEODES research
 organization: Université de Montréal
@@ -15,7 +15,7 @@ technologies: [Python]
 draft: false
 featured: true
 include_in_cv: false
-display_order: 1
+display_order: 2
 cv_entry: covasim-research
 links:
   - label: Original research poster · PDF
@@ -28,24 +28,17 @@ links:
 
 ## 01 Context
 
-Covasim is agent-based COVID-19 modeling software in the broader Starsim infectious-disease modeling ecosystem. The case study examines how domain-relevant development evolves following a change in domain knowledge, and how unusual that evolution is relative to the project’s historical development.
-
-This research direction began during a summer 2026 internship at GEODES, Université de Montréal, and continues as graduate research at the same lab. The internship helped frame the research idea. The repository episode examined below is from 2021; it is not the research appointment date.
+Research at GEODES, Université de Montréal, begun during a May–August 2026 internship and continued in graduate study. The Covasim case study examines changes to immunity-related code following new evidence about COVID-19 variants in 2021.
 
 ## 02 Problem
 
-Software can continue to run and pass tests while its encoded domain assumptions become outdated. New evidence about immune escape provides an external anchor for examining how immunity-related representations change in repository history.
-
-The question is whether repository artifacts can help expose this change in represented assumptions. The sequence is not treated as evidence of causality.
+Software can keep running while its assumptions about the domain become outdated. Can repository history reveal how developers adapt those assumptions?
 
 ## 03 Approach
 
-The preliminary method connects an external event to repository evidence, then compares the observed trajectory with historical pseudo-events from the same repository.
+Built a Python/LLM pipeline to classify repository commits. The broader pipeline covered approximately 8,500 commits from 30 repositories across two open-source systems. A 330-commit reference dataset, independently annotated by two people, supported classifier validation.
 
-1. Anchor the analysis to Jan. 19, 2021: new evidence of immune escape.
-2. Classify domain-relevant and non-domain-relevant commits using project-specific criteria and an LLM classifier.
-3. Analyze repository history: the poster specifies 400 commits before and after the event.
-4. Calibrate the trajectory against historical activity in the same repository.
+For Covasim, compared domain-related development around the January 19, 2021 scientific event with historical pseudo-events in the same repository.
 
 ## 04 Result
 
@@ -53,10 +46,10 @@ The preliminary method connects an external event to repository evidence, then c
 
 <div class="finding-head"><span class="finding-stat">85.3%</span><p>of commits in Bins 1–3 were domain-relevant<span class="metadata">128 / 150 commits · Preliminary finding</span></p></div>
 
-Across Bins 1–3, immunity representation is extended, reworked, and eventually consolidated into an explicit module. These bins exceeded the historical 95th percentile; domain prevalence remained above the 90th percentile through Bin 5.
+Domain-related commits exceeded the historical 95th percentile for three consecutive intervals, as immunity-related representations were extended, reworked, and consolidated.
 
 <p class="caveat">One retrospective Covasim episode; no causal or general claim.</p>
 
 </div>
 
-Manuscript in progress; target venue to be determined.
+Manuscript in progress; venue to be determined. The poster includes the original findings chart.
