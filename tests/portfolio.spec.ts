@@ -47,6 +47,7 @@ test("representative pages have no serious accessibility violations or runtime e
     "/work/civilium-structurium/",
   ]) {
     await page.goto(route);
+    await expect(page.locator(".site-header .site-name")).toHaveText("Y.");
     await page.screenshot({
       path: testInfo.outputPath(`${route.replaceAll("/", "-")}-desktop.png`),
       fullPage: true,
@@ -205,8 +206,17 @@ test("CV disclosures are keyboard-operable and print exposes all entries", async
 
 test("confirmed CV identity, education, research continuity and contacts are present", async ({
   page,
+  request,
 }) => {
   await page.goto("/cv/");
+  const pdfLink = page.getByRole("link", { name: "CV · PDF (French)" });
+  await expect(pdfLink).toHaveAttribute(
+    "href",
+    "/artifacts/cv_alejandro_poldo_silva_.pdf",
+  );
+  const pdf = await request.get("/artifacts/cv_alejandro_poldo_silva_.pdf");
+  expect(pdf.ok()).toBe(true);
+  expect(pdf.headers()["content-type"]).toContain("application/pdf");
   await expect(
     page.getByRole("heading", {
       name: "Yamir Alejandro Poldo Silva",

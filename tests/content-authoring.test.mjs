@@ -119,6 +119,10 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
     );
 
     assert.doesNotMatch(work, /Hidden fixture/);
+    assert.match(
+      cv,
+      /href="\/portfolio-test\/artifacts\/cv_alejandro_poldo_silva_\.pdf"/,
+    );
     assert.match(cv, /CV-only fixture/);
     assert.match(cv, /A verified fixture contribution/);
     assert.doesNotMatch(cv, /Homepage fixture|Hidden fixture/);
