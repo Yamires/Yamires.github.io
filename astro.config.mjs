@@ -8,20 +8,27 @@ export default defineConfig({
   output: "static",
   site: process.env.SITE_URL || "https://yamires.github.io",
   base,
-  redirects: { "/research/": `${base.replace(/\/$/, "")}/work/` },
+  redirects: {
+    "/research/": `${base.replace(/\/$/, "")}/work/`,
+    "/research/covasim/": `${base.replace(/\/$/, "")}/artifacts/covasim-poster.pdf`,
+  },
   markdown: {
     processor: unified({ remarkPlugins: [[remarkContent, { base }]] }),
   },
   security: {
     csp: {
-      scriptDirective: { resources: [{ resource: "'none'", kind: "attribute" }] },
-      styleDirective: { resources: [{ resource: "'none'", kind: "attribute" }] },
+      scriptDirective: {
+        resources: [{ resource: "'none'", kind: "attribute" }],
+      },
+      styleDirective: {
+        resources: [{ resource: "'none'", kind: "attribute" }],
+      },
       directives: [
         "default-src 'self'",
         "base-uri 'none'",
         "object-src 'none'",
         "form-action 'none'",
-        "frame-src https://www.canva.com",
+        "frame-src 'self'",
         "img-src 'self' data:",
         "font-src 'self'",
         "connect-src 'self'",

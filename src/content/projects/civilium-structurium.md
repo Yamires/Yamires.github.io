@@ -1,11 +1,12 @@
 ---
 title: "Civilium Structurium — Civil Engineering Web Application"
-summary: "Developed a web application that automates checks of structural sections against CSA S16 requirements."
+summary: "A civil engineering web application for checking structural sections against CSA S16 requirements, with an interactive browser-based calculator."
 date_display: "2025"
 category: "Software"
 context: "Web application project; team and course context to confirm."
 technologies: ["React", "Flask", "PostgreSQL", "SymPy", "Auth0", "Render"]
-draft: true
+draft: false
+action_label: Open calculator
 featured: false
 include_in_cv: false
 display_order: 11

@@ -2,7 +2,8 @@
 title: Domain-relevant software evolution
 summary: A case study of Covasim, examining how software development responds to changes in the scientific knowledge it represents.
 category: Research
-destination: research/covasim/
+destination: artifacts/covasim-poster.pdf
+action_label: View poster · PDF
 status: Preliminary findings · Manuscript in progress; venue to be determined
 date_display: 2026–present
 context: GEODES research
@@ -17,9 +18,6 @@ include_in_cv: false
 display_order: 1
 cv_entry: covasim-research
 links:
-  - label: Interactive research narrative
-    url: research/covasim/
-    description: Motivation, method, findings, and representative commits.
   - label: Original research poster · PDF
     url: artifacts/covasim-poster.pdf
     description: The source poster, including its original findings chart.

@@ -8,6 +8,7 @@ const projects = defineCollection({
     title: z.string(),
     summary: z.string(),
     destination: z.string().optional(),
+    action_label: z.string().default("Read case study"),
     category: z.enum(["Research", "Software", "Other"]).default("Software"),
     status: z.string().default(""),
     date_display: z.string(),

@@ -1,4 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "compilerOptions": { "moduleDetection": "force", "types": ["node"] }
+  "compilerOptions": {
+    "moduleDetection": "force",
+    "types": ["node"]
+  },
+  "exclude": ["node_modules", "dist", "embedded_CivS", "public/civilium"]
 }

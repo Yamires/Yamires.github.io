@@ -33,8 +33,8 @@ const destination = href(project.data.destination || `work/${project.id}/`);
   <a
     class="row-action"
     href={destination}
-    aria-label={`Read the ${project.data.title} case study`}
+    aria-label={`${project.data.action_label}: ${project.data.title}`}
   >
-    Read case study <span aria-hidden="true">→</span>
+    {project.data.action_label} <span aria-hidden="true">→</span>
   </a>
 </article>

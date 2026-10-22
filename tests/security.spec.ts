@@ -14,7 +14,7 @@ test("production pages enforce CSP without blocking their own resources", async 
     "/cv/",
     "/work/covasim/",
     "/work/",
-    "/research/covasim/",
+    "/work/civilium-structurium/",
   ]) {
     await page.goto(path);
     await page.waitForLoadState("networkidle");
@@ -22,7 +22,7 @@ test("production pages enforce CSP without blocking their own resources", async 
       .locator('meta[http-equiv="content-security-policy"]')
       .getAttribute("content");
     expect(policy).toContain("object-src 'none'");
-    expect(policy).toContain("frame-src https://www.canva.com");
+    expect(policy).toContain("frame-src 'self'");
     expect(policy).toContain("script-src-attr 'none'");
     expect(policy).not.toContain("unsafe-inline");
     expect(policy).not.toContain("unsafe-eval");

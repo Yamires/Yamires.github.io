@@ -99,8 +99,25 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
     );
     assert.match(work, /CV-only fixture/);
     assert.match(work, /Homepage fixture/);
-    assert.match(work, /href="\/portfolio-test\/research\/covasim\/"/);
+    assert.match(
+      work,
+      /href="\/portfolio-test\/artifacts\/covasim-poster\.pdf"/,
+    );
     assert.match(work, /href="\/portfolio-test\/work\/alpha-project\/"/);
+    const calculator = html("work/civilium-structurium/index.html");
+    assert.match(calculator, /src="\/portfolio-test\/civilium\/index\.html"/);
+    assert.match(calculator, /href="\/portfolio-test\/civilium\/index\.html"/);
+    assert.match(
+      html("research/covasim/index.html"),
+      /url=\/portfolio-test\/artifacts\/covasim-poster\.pdf/,
+    );
+    assert.equal(
+      existsSync(
+        join(fixture, "dist/civilium/assets/calculation.worker-8GHbMLMG.js"),
+      ),
+      true,
+    );
+
     assert.doesNotMatch(work, /Hidden fixture/);
     assert.match(cv, /CV-only fixture/);
     assert.match(cv, /A verified fixture contribution/);

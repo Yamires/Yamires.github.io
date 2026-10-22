@@ -1,6 +1,6 @@
 # Yamir Alejandro Poldo Silva — personal portfolio
 
-A static, poster-inspired portfolio. The established warm canvas, green typography, numbered sections, ruled document layouts, and responsive behavior are shared by the About page, CV, projects, and research narrative.
+A static, poster-inspired portfolio. The established warm canvas, green typography, numbered sections, ruled document layouts, and responsive behavior are shared by the About page, CV, and projects.
 
 ## Run locally
 
@@ -22,7 +22,7 @@ npm run preview
 - Identity, contact links, Profile, Education, research/teaching/professional entries, and skills: `src/data/profile.ts`.
 - Who Am I prose: `src/pages/index.astro`.
 - Selected CV projects: Markdown files in `src/content/projects/`.
-- Research evidence: the `evidence` collection in `src/data/profile.ts` and the dedicated research page.
+- Research evidence: the `evidence` collection in `src/data/profile.ts` and the archived poster PDF.
 
 The CV has eight sections: Profile; Education; Research Experience; Teaching Experience; Professional Experience; Selected Projects; Technical Skills; Posters & Research Outputs. Profile, Education, Skills, and the poster citation stay visible. Other entries are native disclosures, with optional section filtering, stable anchors, browser-history support, and print/PDF export. The existing `cv/#covasim-research` link remains valid.
 
@@ -45,13 +45,13 @@ The filename becomes `/work/my-project/`. Keep filenames stable after publishing
 | `display_order`          | Lower numbers appear first; titles break ties                                                                                                                                 |
 | `cv_entry`               | Optional existing CV anchor for work already represented by an experience entry                                                                                               |
 | `date_display`           | Human-readable date/year range; no invented precision                                                                                                                         |
-| `destination`            | Optional internal destination for the project title and “Read case study” links. Covasim uses `research/covasim/`; other projects default to their generated case-study page. |
+| `destination`            | Optional internal destination for the project title and “Read case study” links. Covasim uses `artifacts/covasim-poster.pdf`; other projects default to their generated case-study page. |
 | `topics`, `technologies` | Brief context in project rows and CV summaries                                                                                                                                |
 | `links`                  | Array of `label`, `url`, and optional `description`                                                                                                                           |
 
 The work index contains all published projects. Project entries keep stable CV anchors for shared URLs, without displaying entry-permalink or related-CV-entry links. Covasim is not duplicated under Selected Projects.
 
-GraphHopper, Civilium Structurium, and Kaggle are retained as **unpublished optional examples**, based on the supplied CV. They do not fix the public selection. Edit, replace, or publish them as you choose. `project-starter.md` is an unpublished blank example. Drafts are excluded in every build, including development.
+GraphHopper and Kaggle are retained as **unpublished optional examples**, based on the supplied CV. They do not fix the public selection. Edit, replace, or publish them as you choose. `project-starter.md` is an unpublished blank example. Drafts are excluded in every build, including development.
 
 Use these exact headings to retain the existing numbered layout and contextual navigation:
 
@@ -88,13 +88,9 @@ The About page shows up to twelve published photographs, ordered by `display_ord
 
 The Covasim findings figure is extracted from the supplied poster. Verified text includes the 85.3% finding, 128/150 count, representative commits, interpretations, historical comparison, and caveats. Exact bin values and historical series were not supplied, so no numerical chart data has been reconstructed. A linked numerical chart remains deferred until verified source data is available.
 
-### Original Canva poster
+### Poster PDF
 
-The research introduction includes a collapsed **View original poster · Canva** disclosure. Its iframe is created only on first opening; closing and reopening retains the same frame. There are no Canva requests before opening it and no Canva SDK loaded on the parent page. The external Canva link and PDF download remain available without JavaScript or when Canva is unavailable. The viewer is omitted from print output.
-
-`src/data/research-poster.ts` stores the public view URL, generated iframe URL, original-poster PDF reference, and viewer dimensions. The iframe URL was obtained from the oEmbed metadata advertised by the public Canva page on 2026-10-19; the generated dimensions are 1536 × 2304 (2:3). Use the generated URL, not the ordinary share URL, for the iframe. When replacing the design, obtain its current HTML from **Share → See all → Embed**, copy the iframe `src`, update the dimensions and the matching `.poster-viewer-frame` aspect ratio in `src/styles/research.css`, and check it in a logged-out browser before publishing. This integration does not change Canva sharing settings.
-
-The embedded design follows edits made in Canva, as described in [Canva’s embedding documentation](https://www.canva.com/help/embed-designs/). The native research narrative, chart image, and archived PDF are maintained separately: review all three when scientific content changes. The iframe does not provide numerical chart data or synchronize with the commit-bin controls.
+Work, homepage Selected Work, and CV poster links open `public/artifacts/covasim-poster.pdf` directly. Replace that file to update the poster while preserving links. The retired `/research/covasim/` address redirects to the PDF. The separate text case study remains at `/work/covasim/`; review its findings and the figure whenever the research changes.
 
 ## Test
 
@@ -103,7 +99,7 @@ npx playwright install chromium
 npm test
 ```
 
-The authoring integration test builds an isolated temporary copy with synthetic projects and photographs, checking draft exclusion, independent homepage/CV selection, generic project sections, CV anchors, metadata, and repository-subpath image URLs. It never changes your authored files. Browser tests build a fresh production site on port 4322 and cover deep links, filtering/history, expansion, confirmed content, mobile reflow, keyboard and print behavior, no-JavaScript access, and automated accessibility checks. Poster-viewer tests intercept Canva requests with a controlled response or simulated failure, verifying no requests before activation, one retained frame, accessible labeling, portrait proportions, and working fallbacks. They do not assert that Canva is always reachable.
+The authoring integration test builds an isolated temporary copy with synthetic projects and photographs, checking draft exclusion, independent homepage/CV selection, generic project sections, CV anchors, metadata, and repository-subpath image URLs. It never changes your authored files. Browser tests build a fresh production site on port 4322 and cover deep links, filtering/history, expansion, confirmed content, mobile reflow, keyboard and print behavior, no-JavaScript access, and automated accessibility checks. Browser tests also verify direct poster PDF links, retired-route redirects, and the embedded calculator. Run `BASE_PATH=/portfolio-test npx playwright test tests/civilium.spec.ts` to exercise calculator calculations, workers, persistence, PDF links, and redirects under a repository subpath.
 
 ## GitHub Pages
 
@@ -116,15 +112,15 @@ SITE_URL=https://example.github.io BASE_PATH=/myWebsite npm run build
 BASE_PATH=/myWebsite npm run preview
 ```
 
-`example.github.io` is a configuration placeholder. Set `SITE_URL` and `BASE_PATH` for builds outside Actions. No runtime APIs, analytics, or third-party font requests are required.
+`example.github.io` is a configuration placeholder. Set `SITE_URL` and `BASE_PATH` for builds outside Actions. No runtime APIs, analytics, or third-party font requests are required. The supplied Civilium demo uses browser workers and local storage; its service worker is scoped to the calculator directory.
 
 Official references: [Markdown in Astro](https://docs.astro.build/en/guides/markdown-content/), [content collections](https://docs.astro.build/en/guides/content-collections/), and [GitHub Pages deployment](https://docs.astro.build/en/guides/deploy/github/).
 
 
 ### Security and deployment controls
 
-- No server, authentication, forms, analytics, or runtime secrets. Fonts and figures are local. Canva loads only after opening the poster viewer.
-- Build-generated Content Security Policy hashes permit the site's scripts/styles, reject inline handlers and styles, and limit frames to Canva. A no-referrer policy limits outgoing link metadata. GitHub Pages controls HTTP response headers; CSP is delivered using HTML metadata, so header-only controls such as `frame-ancestors` cannot be configured here.
+- No server, authentication, forms, analytics, or runtime secrets. Fonts and figures are local. The calculator runs locally inside a same-origin iframe.
+- Build-generated Content Security Policy hashes permit the site's scripts/styles, reject inline handlers and styles, and limit frames to the same origin. A no-referrer policy limits outgoing link metadata. GitHub Pages controls HTTP response headers; CSP is delivered using HTML metadata, so header-only controls such as `frame-ancestors` cannot be configured here.
 - npm lifecycle scripts are disabled in `.npmrc` and CI. Dependency installation uses the lockfile; the workflows audit dependencies and pin actions to immutable commits. Dependabot proposes weekly dependency/action updates without automatic merging.
 - The build job has read-only repository access and checkout does not persist credentials. Only the deployment job receives short-lived Pages/OIDC write permissions. No personal access token is stored in this repository or required by its workflows.
 - Only `dist/` is deployed. Draft content is excluded from the site but remains visible in the public source repository. Never put confidential content in draft Markdown. The original combined CV/application and local poster source copy are ignored; only the intended archived poster PDF is public.
@@ -133,4 +129,73 @@ Official references: [Markdown in Astro](https://docs.astro.build/en/guides/mark
 
 ## Research navigation
 
-Work contains a short introduction to the research direction and the existing project listing. There is no separate Research overview in navigation; the old `/research/` address redirects to `/work/`. The Covasim poster remains at `/research/covasim/` with its existing Work and homepage links.
+Work contains a short introduction to the research direction and the existing project listing. There is no separate Research overview in navigation; the old `/research/` address redirects to `/work/`. The old `/research/covasim/` address redirects to the archived poster PDF. Work and homepage poster links open that PDF directly.
+
+
+## Page-by-page editing guide
+
+Use the table to find the source for the change you want to make. Edit source files rather than `dist/`, which is regenerated on every build.
+
+| Page / area | Source to edit | Structure to follow |
+| --- | --- | --- |
+| About `/` | `src/pages/index.astro` | Intro → Who am I → Selected work → Background → Photographs → Contact. Edit prose inside the existing sections; keep their IDs for navigation. |
+| Identity and contacts | `src/data/profile.ts` | Update the exported profile values once; About, CV, navigation, and footer reuse them. The footer's displayed update date is in `src/layouts/Base.astro`. |
+| CV `/cv/` | `src/data/profile.ts`; `src/pages/cv/index.astro` | Put experience, education, and skills in the data file. Use the Astro file for section layout and poster citation. Keep entry IDs stable for shared links. |
+| Work `/work/` | `src/pages/work/index.astro`; `src/content/projects/*.md` | Edit the page introduction in Astro. Edit each project's title, summary, date, topics, destination, and order in Markdown metadata. |
+| Standard project `/work/<filename>/` | `src/content/projects/<filename>.md` | Copy `templates/project.md`; complete Context → Problem → Approach → Result. Artifacts are generated from `links`. Layout lives in `src/pages/work/[id].astro`. |
+| Civilium `/work/civilium-structurium/` | `src/content/projects/civilium-structurium.md`; `src/pages/work/civilium-structurium.astro` | The Markdown metadata supplies its listing and description. The dedicated Astro page supplies the title, iframe, and separate-tab link. It replaces the generic project page for this slug. |
+| Poster PDF | `public/artifacts/covasim-poster.pdf` | Replace the PDF at the same path. Update the citation in the CV and research metadata if its title or authors change. |
+| Photography on About | `src/content/photography/*.md`; `public/images/photography/` | Copy `templates/photograph.md`, add a web-sized image, write descriptive alt text, set order, then publish with `draft: false`. |
+| Navigation and footer | `src/layouts/Base.astro` | Edit the shared links and footer here; all pages inherit them. Contact links lead to the About contact section. |
+| Appearance | `src/styles/global.css`, `content.css`, `research.css`, `responsive.css` | Use shared colors/type/layout rules, content rules, research presentation, and responsive overrides respectively. Calculator frame styles are local to its Astro page. |
+| Not-found page | `src/pages/404.astro` | Edit the message and recovery links while retaining the shared layout. |
+
+### Project metadata example
+
+```yaml
+title: My project
+summary: One sentence describing the problem and contribution.
+date_display: "2026"
+category: Software
+draft: false
+featured: false
+include_in_cv: false
+display_order: 2
+links:
+  - label: Repository
+    url: https://github.com/owner/project
+```
+
+`draft: false` publishes the project in Work. `featured: true` selects it for About (up to three projects); `include_in_cv: true` selects it for CV. Lower `display_order` values appear first. Keep a published filename stable because it defines the URL.
+
+For a listing that opens an artifact instead of its case study, add:
+
+```yaml
+destination: artifacts/my-poster.pdf
+action_label: View poster · PDF
+```
+
+Use site-relative paths without the repository prefix in metadata. Astro links should use `href()` from `src/lib/paths.ts`, which includes `BASE_URL`; never hard-code a deployment subfolder. Ordinary project links default to “Read case study”. Civilium uses “Open calculator”.
+
+### Replace the Civilium calculator
+
+The complete supplied export is preserved in `embedded_CivS/`. The published copy is `public/civilium/`; edits to the source folder alone do not update the deployed calculator.
+
+1. Export a new complete embedded build from the calculator project using relative asset URLs.
+2. Replace the contents of `public/civilium/` with the complete export, including `index.html`, `assets/`, images, manifest, service-worker files, and license. Remove obsolete files from the previous export as part of the replacement.
+3. Keep its service worker scoped to `./` so it controls only the calculator directory.
+4. Preview `/work/civilium-structurium/` and `/civilium/index.html`. Check calculations, configuration persistence, and the separate-tab link. Check with a fresh browser context as well as an existing service-worker installation.
+
+The iframe URL uses the existing `BASE_URL`-aware helper. Its styles belong in CSS because the portfolio's CSP rejects inline style attributes. The exported calculator runs independently of Astro's generated page CSP. The published copy has one accessibility correction: the profile results grid always defines its four standard columns, even before a calculation. Its service-worker precache revision is updated for that modified asset. The original `embedded_CivS/` export is unchanged. When replacing the demo, retain that behavior in the upstream source or verify the new export passes the accessibility test.
+
+### Verify an edit
+
+```sh
+npm run dev
+npm run check
+npm test
+npm run build
+npm run preview
+```
+
+Review the affected page at desktop and mobile widths. For a repository deployment, also build and preview with `BASE_PATH=/myWebsite` as shown above. No deployment occurs until the manual GitHub Pages workflow is run.
