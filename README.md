@@ -20,7 +20,8 @@ npm run preview
 ## Edit the CV and About
 
 - Identity, contact links, Profile, Education, expected graduation, research/teaching/professional entries, and skills: `src/data/profile.ts`.
-- Who Am I prose: `src/pages/index.astro`.
+- Who Am I prose and portrait caption: `src/pages/index.astro`.
+- Homepage portrait: `public/images/portrait.webp`; replace with a web-sized copy. The supplied `IMG_6816.png` stays local and is ignored by Git.
 - Selected CV projects: Markdown files in `src/content/projects/`.
 - Research evidence: the `evidence` collection in `src/data/profile.ts` and the archived poster PDF.
 

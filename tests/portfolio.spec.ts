@@ -219,7 +219,7 @@ test("confirmed CV identity, education, research continuity and contacts are pre
   expect(pdf.headers()["content-type"]).toContain("application/pdf");
   await expect(
     page.getByRole("heading", {
-      name: "Yamir Alejandro Poldo Silva",
+      name: "Curriculum vitae",
       exact: true,
     }),
   ).toBeVisible();
@@ -257,6 +257,28 @@ test("project drafts stay unpublished and Markdown-authored travel photographs r
   await expect(page.locator("#about")).toContainText(
     "travelling and photography",
   );
+  const portrait = page.locator(".intro-portrait img");
+  await expect(portrait).toHaveAttribute(
+    "alt",
+    "Portrait of Yamir Alejandro Poldo Silva",
+  );
+  await expect
+    .poll(() =>
+      portrait.evaluate(
+        (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+      ),
+    )
+    .toBe(true);
+  await expect(page.locator(".intro-portrait figcaption")).toHaveText(
+    "Yamir Alejandro Poldo Silva",
+  );
+  await expect(
+    page.getByRole("heading", {
+      name: "Yamir Alejandro Poldo Silva",
+      exact: true,
+    }),
+  ).toHaveCount(0);
+
   const photographs = page.locator("#photography .photograph");
   expect(await photographs.count()).toBeGreaterThan(0);
   expect(await photographs.count()).toBeLessThanOrEqual(12);

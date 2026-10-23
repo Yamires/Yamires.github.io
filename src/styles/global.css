@@ -250,9 +250,27 @@ main {
   color: var(--muted);
 }
 .home-intro {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
   position: relative;
   padding: 16px 0 48px;
   max-width: 100%;
+}
+.intro-portrait {
+  margin: 0;
+}
+.intro-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.intro-portrait figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
 }
 .home-intro h1 {
   margin-block: 28px 12px;
