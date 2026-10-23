@@ -106,7 +106,7 @@ The authoring integration test builds an isolated temporary copy with synthetic 
 
 ## GitHub Pages
 
-The site is hosted at **https://yamires.github.io** from **Yamires/Yamires.github.io**. Deployments are manual: pushes run checks but do not publish. Enable Pages with **GitHub Actions** as the publishing source, then manually run **Deploy portfolio** in the destination repository. Its site URL and base path come from GitHub's Pages configuration.
+The site is hosted at **https://yamires.github.io** from **Yamires/Yamires.github.io**. Deployments are manual: pushes run checks but do not publish. Enable Pages with **GitHub Actions** as the publishing source, then manually run **Deploy portfolio** in the destination repository. Its site URL and base path come from GitHub's Pages configuration. The deploy workflow first requires a successful **Check portfolio** push run for the exact `main` commit. It then installs dependencies, builds, and publishes, reusing that validation instead of repeating the audit, type checks, and browser suite.
 
 For a local repository-subpath build:
 
