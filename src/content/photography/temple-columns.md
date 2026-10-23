@@ -1,5 +1,5 @@
 ---
-title: "Temple columns"
+title: "Parthenon"
 location: ""
 year: ""
 caption: ""

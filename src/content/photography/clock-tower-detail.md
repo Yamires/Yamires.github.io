@@ -1,5 +1,5 @@
 ---
-title: "Clock tower detail"
+title: "Trafikanten clock tower"
 location: ""
 year: ""
 caption: ""
