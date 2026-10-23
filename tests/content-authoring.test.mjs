@@ -92,6 +92,7 @@ test("Markdown projects publish independently to homepage, work and CV; photos r
     const research = html("research/index.html");
     assert.doesNotMatch(research, /Hidden research output|Private draft text/);
     assert.match(research, /\/portfolio-test\/work\//);
+    assert.match(home, /src="\/portfolio-test\/images\/portrait\.webp"/);
     assert.match(home, /Homepage fixture/);
     assert.doesNotMatch(
       home,

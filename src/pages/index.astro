@@ -13,26 +13,38 @@ const projects = (await publishedProjects())
 
 <Base title="About" active="about">
   <div class="home-intro">
-    <p class="eyebrow">
-      {profile.headline} <span class="inline-divider">/</span>{" "}
-      {profile.affiliation}
-    </p>
-    <h1>{profile.name}</h1>
-    <p class="intro-statement">
-      Building maintainable software
-      <br class="desktop-break" /> and studying how it evolves
-      <span class="accent">.</span>
-    </p>
-    <p class="intro-support">
-      Python, Java, full-stack development, and software testing.
-    </p>
-    <div class="link-group">
-      <a class="action-link" href={href("cv/")}>
-        View CV <span aria-hidden="true">→</span>
-      </a>
-      <a href="#selected-work">
-        Selected work <span aria-hidden="true">↓</span>
-      </a>
+    <figure class="intro-portrait">
+      <img
+        src={href("images/portrait.webp")}
+        alt={`Portrait of ${profile.name}`}
+        width="640"
+        height="640"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <figcaption>{profile.name}</figcaption>
+    </figure>
+    <div class="intro-copy">
+      <p class="eyebrow">
+        {profile.headline} <span class="inline-divider">/</span>{" "}
+        {profile.affiliation}
+      </p>
+      <h1 class="intro-statement">
+        Building maintainable software
+        <br class="desktop-break" /> and studying how it evolves
+        <span class="accent">.</span>
+      </h1>
+      <p class="intro-support">
+        Python, Java, full-stack development, and software testing.
+      </p>
+      <div class="link-group">
+        <a class="action-link" href={href("cv/")}>
+          View CV <span aria-hidden="true">→</span>
+        </a>
+        <a href="#selected-work">
+          Selected work <span aria-hidden="true">↓</span>
+        </a>
+      </div>
     </div>
     <div class="intro-index" aria-hidden="true">
       <span>FIELD NOTES</span>
