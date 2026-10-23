@@ -1,5 +1,5 @@
 ---
-title: "Corinthian capital"
+title: "Corinthian Column"
 location: ""
 year: ""
 caption: ""
