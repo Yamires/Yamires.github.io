@@ -1,5 +1,5 @@
 ---
-title: "Carved stone"
+title: "Corinthian capital"
 location: ""
 year: ""
 caption: ""
