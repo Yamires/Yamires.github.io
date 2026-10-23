@@ -26,7 +26,7 @@ npm run preview
 
 The CV has eight sections: Profile; Education; Research Experience; Teaching Experience; Professional Experience; Selected Projects; Technical Skills; Posters & Research Outputs. Profile, Education, Skills, and the poster citation stay visible. Other entries are native disclosures, with optional section filtering, stable anchors, browser-history support, and print/PDF export. The existing `cv/#covasim-research` link remains valid.
 
-The English portfolio follows the latest French CV for experience, dates, and reported results, while retaining the confirmed ongoing graduate research. Keep introductions brief and place detailed contributions in CV disclosures or project pages. The supplied French CV is a local reference, excluded from Git and the public site.
+The English portfolio follows the latest French CV for experience, dates, and reported results, while retaining the confirmed ongoing graduate research. Keep introductions brief and place detailed contributions in CV disclosures or project pages. The CV page links to the French PDF at `public/artifacts/cv_alejandro_poldo_silva_.pdf`. Replace that published file to update the download. The original local source copy remains excluded from Git.
 
 The current research continues at GEODES after the summer 2026 internship that helped frame it. The manuscript is in progress, with venue TBD; no publication or accepted submission is claimed. Education and dates follow the owner's confirmed information. The original combined Deloitte application PDF is source material only, is ignored by Git, and is not a public CV download. Print/PDF export creates a CV-only document from the web page.
 
@@ -148,7 +148,8 @@ Use the table to find the source for the change you want to make. Edit source fi
 | Civilium `/work/civilium-structurium/` | `src/content/projects/civilium-structurium.md`; `src/pages/work/civilium-structurium.astro` | The Markdown metadata supplies its listing and description. The dedicated Astro page supplies the title, iframe, and separate-tab link. It replaces the generic project page for this slug. |
 | Poster PDF | `public/artifacts/covasim-poster.pdf` | Replace the PDF at the same path. Update the citation in the CV and research metadata if its title or authors change. |
 | Photography on About | `src/content/photography/*.md`; `public/images/photography/` | Copy `templates/photograph.md`, add a web-sized image, write descriptive alt text, set order, then publish with `draft: false`. |
-| Navigation and footer | `src/layouts/Base.astro` | Edit the shared links and footer here; all pages inherit them. Contact links lead to the About contact section. |
+| French CV PDF | `public/artifacts/cv_alejandro_poldo_silva_.pdf` | Replace the PDF at the same path to preserve the CV download link. |
+| Navigation and footer | `src/layouts/Base.astro` | Edit the shared links, “Y.” header mark, and footer here; all pages inherit them. Contact links lead to the About contact section. |
 | Appearance | `src/styles/global.css`, `content.css`, `research.css`, `responsive.css` | Use shared colors/type/layout rules, content rules, research presentation, and responsive overrides respectively. Calculator frame styles are local to its Astro page. |
 | Not-found page | `src/pages/404.astro` | Edit the message and recovery links while retaining the shared layout. |
 
